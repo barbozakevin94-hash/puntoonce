@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Punto Once · Polos tejidas en Montevideo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: premium and calm, like a product launch for something you want to touch — the person's reference, adapted to retro football knitwear.
+   IDEA: the polo hangs in a misty stadium at dawn, floodlights glowing through fog, as goggles sit in snow in the reference.
+   PICTURE: the live 3D polo over a soft pitch, a giant white wordmark at its feet.
+   COLOUR and TYPE: mist grey-blue #e9edf1 fixed in both themes, white cards, near-black ink and buttons, WhatsApp green only on send; Inter Tight + Inter.
+   LAYOUT: full-bleed hero, switcher card, features card, featured card, rail, grid, how to buy, FAQ; app-style tab bar on phones. */
+:root{color-scheme:light;--bg:#e9edf1;--card:#fff;--ink:#0e1216;--mute:#5d6874;--line:rgba(14,18,22,.08);--sh:0 14px 36px rgba(25,35,48,.10);--wa:#25d366;--a1:#8fa3b5;--a2:#c9d3dc;--sx:50%;--sy:82%}
+:root[data-theme]{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;margin:0;line-height:1.05;text-wrap:balance;letter-spacing:-.02em}
+svg.i{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+:is(a,button,summary,select):focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:12px}
+/* header */
+.ship{display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 14px;padding-top:max(9px,env(safe-area-inset-top));background:var(--ink);color:#fff;font-size:12.5px;font-weight:500;text-align:center}
+.ship svg.i{width:18px;height:18px}
+.ship .s{display:none}
+@media(max-width:759px){.ship .l{display:none}.ship .s{display:inline}}
+.nav{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:10px max(4vw,14px);background:rgba(246,248,250,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.menu{display:flex;align-items:center;gap:8px;min-height:44px;font-size:13px;font-weight:600;justify-self:start}
+.menu svg{width:22px}
+.brand{font-family:"Inter Tight",sans-serif;font-weight:700;font-size:16px;letter-spacing:.32em;padding-left:.32em;white-space:nowrap}
+.right{display:flex;gap:6px;justify-self:end;align-items:center}
+.ib{position:relative;width:44px;height:44px;border-radius:50%;display:grid;place-items:center}
+.badge{position:absolute;top:4px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ink);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+.badge:empty{display:none}
+.pill{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:#fff;box-shadow:0 2px 10px rgba(25,35,48,.06);font-weight:600;font-size:14px;white-space:nowrap}
+.desk{display:none}
+@media(min-width:760px){.desk{display:inline-flex}}
+/* hero */
+.hero{position:relative;height:clamp(600px,86svh,820px);overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab;background:#dfe5ea}
+.hero:active{cursor:grabbing}
+.scene{position:absolute;inset:0;width:100%;height:100%}
+.word{position:absolute;left:-.03em;right:0;bottom:-.14em;font-family:"Inter Tight",sans-serif;font-weight:800;font-size:clamp(70px,19vw,250px);line-height:.8;letter-spacing:-.05em;color:#fff;white-space:nowrap;pointer-events:none;text-align:left}
+.shadow{position:absolute;left:var(--sx);top:var(--sy);width:min(46vw,380px);height:34px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(18,28,38,.34),rgba(18,28,38,0));filter:blur(4px);pointer-events:none}
+#gl,#spin,.fallback{position:absolute;inset:0;width:100%;height:100%}
+#spin,.fallback{display:none}
+.fallback{object-fit:contain;padding:36% 16% 18%}
+.copy{position:relative;z-index:2;padding:clamp(22px,4vw,56px) max(5vw,20px) 0;max-width:560px;pointer-events:none}
+.copy>*{pointer-events:auto}
+.mark{width:58px;height:34px;color:#fff;margin-bottom:22px;filter:drop-shadow(0 2px 8px rgba(30,40,50,.15))}
+.kick{margin:0 0 6px;font-size:16px;color:#33404c;font-weight:500}
+.copy h1{font-size:clamp(34px,6vw,58px);font-weight:700;color:var(--ink)}
+.sub{margin:12px 0 20px;color:#3e4a56;font-size:15px;max-width:38ch}
+.go{display:inline-flex;align-items:center;gap:14px;min-height:56px;padding:6px 6px 6px 22px;border-radius:999px;background:#fff;box-shadow:var(--sh);font-weight:600;font-size:16px}
+.go i{width:44px;height:44px;border-radius:50%;background:#eef1f4;display:grid;place-items:center}
+.go svg{width:18px;height:18px}
+.hint{position:absolute;z-index:2;left:50%;top:calc(var(--sy) + 14px);transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:13px;font-weight:600;white-space:nowrap;pointer-events:none;transition:opacity .5s;display:none}
+.hint.on{display:flex}.hint.off{opacity:0}
+.loading{position:absolute;inset:0;display:grid;place-items:center;font-size:14px;color:var(--mute);pointer-events:none}
+/* content */
+main>.wrap{max-width:1120px;margin:0 auto;padding:0 max(4vw,14px)}
+.card{background:var(--card);border-radius:24px;box-shadow:var(--sh)}
+.switch{position:relative;z-index:3;margin-top:-34px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px;padding:10px}
+.switch .arw{width:48px;height:48px;border-radius:50%;background:#f1f4f6;display:grid;place-items:center}
+.switch .mid{text-align:center}
+.switch h2{font-size:20px;font-weight:700}
+.switch p{margin:2px 0 8px;color:var(--mute);font-size:13px}
+.dots{display:flex;gap:6px;justify-content:center}
+.dots button{width:22px;height:22px;display:grid;place-items:center}
+.dots button::before{content:"";width:7px;height:7px;border-radius:50%;background:#c8d0d7;transition:.3s}
+.dots button[aria-current=true]::before{background:var(--ink);width:18px;border-radius:4px}
+.feat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:16px;padding:20px 8px}
+.feat div{display:grid;justify-items:center;gap:8px;text-align:center;font-size:12.5px;line-height:1.3;color:#2a333c;font-weight:500;padding:0 4px}
+.feat svg.i{width:32px;height:32px;stroke-width:1.3;color:#4b5763}
+.hot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);margin-top:16px;overflow:hidden}
+.tile{position:relative;background:linear-gradient(#d4dde4,#eef1f4 70%,#e3e9ed);display:grid;place-items:center;overflow:hidden}
+.tile::before{content:"";position:absolute;left:12%;top:-18%;width:70%;height:60%;background:radial-gradient(closest-side,rgba(255,255,255,.9),transparent);pointer-events:none}
+.tile img{position:relative;width:84%;height:84%;object-fit:contain;filter:drop-shadow(0 14px 14px rgba(20,30,40,.22))}
+.hot .tile{aspect-ratio:1/1;border-radius:24px 0 0 24px}
+.hot .txt{padding:18px 18px 16px;display:grid;align-content:center;gap:6px}
+.tag{font-size:11px;letter-spacing:.12em;color:var(--mute);font-weight:600}
+.hot h3{font-size:22px;font-weight:700}
+.hot p{margin:0;color:var(--mute);font-size:13px}
+.hot .row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+.price{font-weight:600;font-size:15px}
+.dark{width:48px;height:48px;flex:none;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center}
+.dark svg{width:20px;height:20px}
+.head{display:flex;justify-content:space-between;align-items:baseline;margin:30px 2px 12px}
+.head h2{font-size:17px;font-weight:600;letter-spacing:-.01em}
+.head a{font-size:13px;color:var(--mute);font-weight:500;min-height:44px;display:inline-flex;align-items:center}
+.rail{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none;scroll-snap-type:x mandatory}
+.rail::-webkit-scrollbar{display:none}
+.rail button{flex:none;width:104px;scroll-snap-align:start;display:grid;gap:6px;text-align:center;font-size:12px;font-weight:600}
+.rail .tile{width:104px;height:104px;border-radius:18px;box-shadow:0 4px 14px rgba(25,35,48,.08);outline:2px solid transparent;outline-offset:2px;transition:outline-color .3s}
+.rail button[aria-pressed=true] .tile{outline-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.prod{padding:10px;display:grid;gap:10px}
+.prod .tile{aspect-ratio:1/1.08;border-radius:18px}
+.prod .meta{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 4px 2px}
+.prod h3{font-size:16px;font-weight:700}
+.prod small{display:block;color:var(--mute);font-size:12.5px}
+.prod .v3d{position:absolute;top:10px;left:10px;z-index:1;min-height:32px;padding:0 11px;border-radius:999px;background:rgba(255,255,255,.85);font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px}
+.promo{margin-top:16px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:16px 16px 16px 20px}
+.promo .big{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:30px;letter-spacing:-.03em}
+.promo p{margin:0;font-size:14px;color:var(--mute)}
+.promo p b{display:block;color:var(--ink);font-size:15px}
+.promo button{min-height:48px;padding:0 18px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;font-size:14px;white-space:nowrap}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.step{padding:20px}
+.step svg.i{width:28px;height:28px;color:#4b5763;margin-bottom:10px}
+.step h3{font-size:17px;margin-bottom:4px}
+.step p{margin:0;color:var(--mute);font-size:14px}
+.faq{display:grid;gap:10px}
+details{background:#fff;border-radius:18px;box-shadow:0 4px 16px rgba(25,35,48,.06)}
+summary{list-style:none;cursor:pointer;padding:16px 18px;min-height:52px;font-weight:600;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:20px;line-height:1;color:var(--mute)}
+details[open] summary::after{content:"–"}
+details p{margin:0;padding:0 18px 16px;color:var(--mute);font-size:15px}
+footer{max-width:1120px;margin:40px auto 0;padding:24px max(4vw,14px) 120px;display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:space-between;color:var(--mute);font-size:13px;border-top:1px solid var(--line)}
+footer b{color:var(--ink);letter-spacing:.24em;font-family:"Inter Tight",sans-serif}
+.look{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 16px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.look::-webkit-scrollbar{display:none}
+.lk{flex:none;width:min(78vw,330px);scroll-snap-align:start;overflow:hidden;display:grid}
+.lk img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.lk .meta{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 12px 12px 16px}
+.lk h3{font-size:17px;font-weight:700}
+.lk small{display:block;color:var(--mute);font-size:12.5px}
+.lk .v{min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;background:#f1f4f6;font-weight:600;font-size:13px}
+.hot .tile.photo{background:#7fd0dc}.hot .tile.photo::before{display:none}.hot .tile.photo img{width:100%;height:100%;object-fit:cover;filter:none}
+.pr{display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap}
+.now{font-weight:700;color:var(--ink)}
+.was{color:#8b96a1;text-decoration:line-through;font-weight:500}
+.off{display:inline-grid;place-items:center;min-height:22px;padding:0 7px;border-radius:7px;background:#d93b30;color:#fff;font-size:12px;font-weight:700}
+.deal{display:inline-flex;align-items:center;gap:8px;margin:14px 0 0;padding:7px 12px 7px 7px;border-radius:999px;background:rgba(255,255,255,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.deal:empty{display:none}
+.deal{white-space:nowrap}
+@media(max-width:759px){.deal .dl{display:none}.deal{margin-top:10px}}
+.prod small.pr,.lk small.pr{display:flex;gap:2px 7px;flex-wrap:wrap;align-items:center;margin-top:3px;font-size:13px}
+.switch .pr{justify-content:center;font-size:17px;margin-top:4px}
+.launch{margin-top:16px;padding:18px;display:grid;gap:14px}
+.launch:empty{display:none}
+.launch h3{font-size:21px;font-weight:700;margin:4px 0}
+.launch p{margin:0;color:var(--mute);font-size:14px}
+.cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.cd div{background:#f1f4f6;border-radius:14px;padding:10px 0 8px;text-align:center}
+.cd b{display:block;font-family:"Inter Tight",sans-serif;font-size:26px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.cd span{font-size:11px;color:var(--mute)}
+.tot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:14px 16px;border-radius:16px;background:#fff;font-weight:600}
+.tot:empty{display:none}
+.tot b{font-family:"Inter Tight",sans-serif;font-size:22px}
+.tot small{display:block;color:#1f8a4c;font-weight:600}
+.tot small.m{color:var(--mute)}
+@media(min-width:760px){.launch{grid-template-columns:minmax(0,1fr) 360px;align-items:center;padding:22px 26px}}
+.combo{margin-top:16px;padding:16px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
+.duo{position:relative;width:112px;height:100px}
+.duo img{position:absolute;width:74px;height:84px;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(20,30,40,.22))}
+.duo img:first-child{left:0;top:4px;transform:rotate(-8deg)}.duo img:last-child{right:0;top:12px;transform:rotate(7deg)}
+.combo h3{font-size:21px;font-weight:700;margin:4px 0}
+.combo p{margin:0;color:var(--mute);font-size:14px}
+.combo .btn{grid-column:1/-1;min-height:50px}
+.cl{margin:2px 0 6px;font-size:13px;font-weight:600;color:#1f8a4c}
+.nudge{display:grid;gap:10px;padding:14px 16px;border-radius:16px;background:#e9f7ee;color:#11502c;font-size:14px;font-weight:500}
+.nudge button{justify-self:start;min-height:44px;padding:0 16px;border-radius:999px;background:#11502c;color:#fff;font-weight:600;font-size:14px}
+.pays{display:flex;flex-wrap:wrap;gap:8px}
+.pays span{display:inline-flex;align-items:center;min-height:36px;padding:0 13px;border-radius:999px;background:#fff;box-shadow:0 2px 8px rgba(25,35,48,.06);font-size:13px;font-weight:600}
+.payrow{margin-top:16px;padding:16px 18px;display:grid;gap:10px}
+.payrow h3{font-size:18px;font-weight:700}
+.pgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.pm{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start;padding:12px;border-radius:16px;background:#f3f6f8}
+.pm>.i{width:40px;height:40px;padding:9px;border-radius:12px;background:#fff;box-shadow:0 2px 8px rgba(25,35,48,.06)}
+.pm b{display:block;font-size:15px}
+.pm>div>span{display:block;color:var(--mute);font-size:13.5px;margin-top:1px}
+.pm .pays{margin-top:10px;gap:6px}
+.pm .pays span{min-height:30px;padding:0 11px;font-size:12.5px}
+@media(min-width:760px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}.pm.wide{grid-column:1/-1}}
+@media(min-width:760px){.combo{grid-template-columns:auto minmax(0,1fr) 240px;padding:20px 26px}.combo .btn{grid-column:auto}}
+/* sandalias */
+.newin{margin-top:16px;display:grid;grid-template-columns:72px minmax(0,1fr) auto;align-items:center;gap:14px;padding:10px 12px 10px 10px}
+.newin img{width:72px;height:72px;border-radius:16px;object-fit:cover;display:block}
+.newin h3{font-size:18px;font-weight:700;margin-top:2px}
+.newin p{margin:2px 0 0;color:var(--mute);font-size:13px}
+.sban{overflow:hidden;display:grid}
+.sban img{width:100%;aspect-ratio:1400/736;object-fit:cover;display:block}
+.sban .txt{padding:16px 18px 18px;display:grid;gap:4px}
+.sban h3{font-size:22px;font-weight:700}
+.sban p{margin:0;color:var(--mute);font-size:14px}
+.sgrid{margin-top:14px}
+.sprod .ph2{position:relative;display:block;width:100%;aspect-ratio:4/5;border:0;padding:0;border-radius:18px;overflow:hidden;background:#eef1f4}
+.sprod .ph2 img{width:100%;height:100%;object-fit:cover;display:block}
+.sw{display:flex;gap:5px;margin:6px 0 2px}
+.sw i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.ask{color:var(--ink);font-weight:600}
+.gal{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -18px;padding:0 18px}
+.gal::-webkit-scrollbar{display:none}
+.gal{align-items:flex-start;min-height:min(46svh,340px)}
+.gal img{flex:none;height:min(46svh,340px);width:auto;aspect-ratio:4/5;object-fit:cover;border-radius:18px;scroll-snap-align:center;background:#eef1f4}
+.sx{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 10px;padding:0 4px 4px}
+.sx .sw{margin:0}
+.sx .pr{font-size:13px;white-space:nowrap}
+.tile.st img{width:100%;height:100%;object-fit:cover;filter:none}
+.bi b small{display:block;font-weight:500;color:var(--mute);font-size:12.5px;margin-top:1px}
+.sw1{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:8px;vertical-align:-2px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+@media(min-width:760px){.sgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.sban{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:center}.sban img{height:100%;min-height:260px}.sban .txt{padding:28px 32px}.sban h3{font-size:28px}}
+/* tab bar */
+.tabs{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:30;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:6px;border-radius:24px;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 10px 34px rgba(25,35,48,.16)}
+.tabs>*{position:relative;display:grid;justify-items:center;gap:2px;min-height:52px;align-content:center;font-size:11px;font-weight:500;color:var(--mute)}
+.tabs .on{color:var(--ink);font-weight:600}
+.tabs .on::after{content:"";position:absolute;bottom:2px;width:4px;height:4px;border-radius:50%;background:var(--ink)}
+.tabs .badge{top:2px;right:calc(50% - 22px)}
+@media(min-width:760px){.tabs{display:none}footer{padding-bottom:40px}}
+/* sheets */
+.sheet{position:fixed;inset:0;z-index:50;display:none;align-items:flex-end;justify-content:center;background:rgba(20,28,36,.36);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.sheet.on{display:flex}
+.panel{position:relative;width:min(540px,100%);max-height:92svh;overflow-y:auto;background:#f6f8fa;border-radius:28px 28px 0 0;padding:22px 18px calc(18px + env(safe-area-inset-bottom));display:grid;gap:14px;animation:up .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+@media(min-width:700px){.sheet{align-items:center}.panel{border-radius:28px}}
+.panel h2{font-size:22px;padding-right:48px}
+.panel .sub2{margin:-6px 0 0;color:var(--mute);font-size:14px}
+.x{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(25,35,48,.08);font-size:22px;line-height:1}
+.ph{display:flex;align-items:center;gap:12px}
+.ph .tile{width:64px;height:64px;border-radius:14px;flex:none}
+.lab{font-size:13px;font-weight:600;color:#33404c}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;min-width:50px;padding:0 14px;border-radius:14px;background:#fff;box-shadow:0 2px 8px rgba(25,35,48,.06);font-weight:600}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff}
+.opts{display:grid;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;min-height:48px;padding:8px 14px;border-radius:14px;background:#fff;box-shadow:0 2px 8px rgba(25,35,48,.05);font-weight:600}
+.opt::before{content:"";flex:none;width:18px;height:18px;border-radius:50%;border:2px solid #b7c0c8}
+.opt[aria-checked=true]{box-shadow:0 0 0 2px var(--ink)}
+.opt[aria-checked=true]::before{border-color:var(--ink);background:radial-gradient(var(--ink) 45%,transparent 50%)}
+.bubble{justify-self:end;max-width:92%;background:#d9fdd3;color:#0b2a12;border-radius:16px 16px 4px 16px;padding:12px 14px;font-size:14.5px;white-space:pre-line;box-shadow:0 2px 8px rgba(25,35,48,.06)}
+.stick{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom));margin:0 -18px calc(-18px - env(safe-area-inset-bottom));padding:12px 18px calc(16px + env(safe-area-inset-bottom));background:linear-gradient(rgba(246,248,250,0),#f6f8fa 24%);display:grid;gap:8px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;border-radius:999px;font-weight:600;font-size:16px;width:100%}
+.btn svg{width:20px;height:20px}
+.btn.wa{background:var(--wa);color:#04170b}
+.btn.ink{background:var(--ink);color:#fff}
+.btn.ghost{background:#fff;box-shadow:0 2px 8px rgba(25,35,48,.06)}
+.fine{margin:0;font-size:12.5px;color:var(--mute);text-align:center}
+input[type=text]{width:100%;min-height:54px;padding:0 16px;border-radius:16px;border:1px solid var(--line);background:#fff;font:16px Inter,sans-serif;color:var(--ink)}
+input[type=text]:focus{outline:3px solid var(--ink);outline-offset:1px}
+.check{display:flex;gap:10px;align-items:center;font-size:15px;min-height:44px;cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--ink)}
+.member{position:relative;overflow:hidden;border-radius:22px;padding:20px;aspect-ratio:1.7;display:grid;align-content:space-between;color:#fff;background:linear-gradient(140deg,#1b232b,#3a4753 55%,#8496a6);box-shadow:var(--sh)}
+.member::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.16) 48%,transparent 62%)}
+.member .t{display:flex;justify-content:space-between;font-size:13px;font-weight:600;letter-spacing:.2em}
+.member .p{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:clamp(38px,10vw,50px);line-height:1;letter-spacing:-.03em}
+.member .c{font-family:"Inter Tight",sans-serif;font-weight:600;font-size:clamp(15px,4vw,19px);letter-spacing:.04em;overflow-wrap:anywhere}
+.bag{display:grid;gap:8px}
+.bi{display:grid;grid-template-columns:56px minmax(0,1fr) auto auto;align-items:center;gap:10px;background:#fff;border-radius:16px;padding:8px;box-shadow:0 2px 8px rgba(25,35,48,.05)}
+.bi .tile{width:56px;height:56px;border-radius:12px}
+.bi b{font-size:15px}
+.bi select{min-height:44px;border-radius:12px;border:1px solid var(--line);background:#f6f8fa;padding:0 8px;font:600 14px Inter,sans-serif;color:var(--ink)}
+.bi .rm{width:44px;height:44px;border-radius:50%;font-size:20px;color:var(--mute)}
+.empty{text-align:center;color:var(--mute);padding:18px 0}
+.links{display:grid;gap:8px}
+.links a,.links button{display:flex;justify-content:space-between;align-items:center;min-height:56px;padding:0 18px;border-radius:16px;background:#fff;font-weight:600;font-size:17px;box-shadow:0 2px 8px rgba(25,35,48,.05);width:100%}
+.toast{position:fixed;left:50%;bottom:110px;transform:translate(-50%,16px);opacity:0;z-index:60;background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-weight:600;font-size:14px;transition:.3s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(max-width:759px){.feat{grid-template-columns:repeat(4,minmax(0,1fr))}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.steps{grid-template-columns:minmax(0,1fr)}.hot{grid-template-columns:minmax(0,.95fr) minmax(0,1fr)}.hot h3{font-size:19px}.hot .txt{padding:14px}.promo{grid-template-columns:auto minmax(0,1fr)}.promo button{grid-column:1/-1}.copy{padding-top:20px}.sub{font-size:14.5px;margin:8px 0 16px}.mark{display:none}.copy h1{font-size:38px}.word{bottom:70px}}
+@media(min-width:760px){.copy h1{font-size:clamp(44px,5vw,62px)}.hero{height:clamp(620px,84vh,800px)}.hot{grid-template-columns:340px minmax(0,1fr)}.hot .tile{aspect-ratio:auto;height:300px}.hot .txt{padding:28px 32px;max-width:520px}.hot h3{font-size:28px}.hot p{font-size:15px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.panel{animation:none}}
+
+/* ===== Acabado fino =====
+   VOICE: boutique de punto, calma y precisa, como la etiqueta cosida de una prenda buena.
+   IDEA: papel de etiqueta y tinta; líneas finas como costuras en lugar de sombras pesadas.
+   PICTURE: la polo en 3D sobre una cancha en niebla, ahora en tonos piedra.
+   COLOUR and TYPE: papel #f5f4f0, tinta #121212, verde hilo #1f4d3a solo para el pago seguro; Instrument Serif en títulos + Inter.
+   LAYOUT: el mismo recorrido, con más aire y bordes de 1px. */
+:root{--bg:#f5f4f0;--card:#fff;--ink:#121212;--mute:#6b6963;--line:rgba(18,18,18,.11);--sh:none;--safe:#1f4d3a;--paper:#f7f6f2}
+body{background:var(--bg)}
+h1,h2,h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400 !important;letter-spacing:-.005em;line-height:1.04}
+.card{border-radius:16px;box-shadow:none;border:1px solid var(--line)}
+.ship{font-size:12px;font-weight:400;letter-spacing:.03em}
+.nav{background:rgba(245,244,240,.86)}
+.brand{font-family:Inter,sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.46em;padding-left:.46em}
+.menu{font-weight:500;font-size:12px;letter-spacing:.14em}
+.pill{background:transparent;box-shadow:none;border:1px solid var(--line);font-weight:500}
+.badge{background:var(--safe)}
+.hero{background:#e3e1dc}
+.word{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.025em;font-size:clamp(86px,23vw,300px);bottom:-.1em}
+.kick{color:#4a4843;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.copy h1{font-size:clamp(50px,7vw,86px);line-height:.95;letter-spacing:-.015em}
+.sub{color:#45433e}
+.go{background:var(--ink);color:#fff;box-shadow:none;font-weight:500;letter-spacing:.01em}
+.go i{background:rgba(255,255,255,.14)}
+.deal{background:rgba(255,255,255,.72);font-weight:500}
+.tag{letter-spacing:.2em;font-size:10.5px;font-weight:500}
+.now{font-weight:600}
+.was{color:#9b978e;font-weight:400}
+.off{background:var(--ink);border-radius:4px;min-height:20px;font-size:11.5px;font-weight:600;letter-spacing:.02em}
+.switch{box-shadow:0 18px 44px rgba(18,18,18,.08)}
+.switch h2{font-size:30px}
+.switch .arw{background:transparent;border:1px solid var(--line)}
+.dots button::before{background:#cfccc4}
+.cl{color:var(--safe);font-weight:500}
+.tile{background:linear-gradient(#e2dfd8,#f0eee9 70%,#e8e5df)}
+.prod{padding:8px}
+.prod .tile,.sprod .ph2{border-radius:10px}
+.prod h3{font-size:22px}
+.prod .v3d{border-radius:4px;font-weight:500;letter-spacing:.04em;min-height:26px;padding:0 8px;font-size:11px}
+.lk h3{font-size:24px}
+.lk .v{background:transparent;border:1px solid var(--line);font-weight:500}
+.hot .tile{border-radius:15px 0 0 15px}
+.hot h3{font-size:36px}
+.head{margin:52px 2px 16px;padding-top:18px;border-top:1px solid var(--line)}
+.head h2{font-size:32px;letter-spacing:-.01em}
+.rail .tile{border-radius:12px;box-shadow:none;border:1px solid var(--line)}
+.rail button{font-weight:500}
+.feat div{font-weight:400;color:var(--ink)}
+.feat svg.i{color:var(--ink);stroke-width:1.2}
+.feat .fs,.feat .fs svg.i{color:var(--safe);font-weight:500}
+.launch h3,.combo h3{font-size:30px}
+.cd div{background:transparent;border:1px solid var(--line);border-radius:10px}
+.cd b{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:34px}
+.promo .big{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:44px}
+.promo button,.btn.ink{font-weight:500}
+.newin img{border-radius:10px}
+.newin h3{font-size:25px}
+.sban h3{font-size:32px}
+.step h3{font-size:25px}
+.step svg.i{color:var(--ink);stroke-width:1.2}
+details{box-shadow:none;border:1px solid var(--line);border-radius:12px}
+summary{font-weight:500}
+.payrow{gap:12px;padding:20px}
+.payrow h3{font-size:30px}
+.pm{background:var(--paper);border:1px solid var(--line);border-radius:12px}
+.pm>.i{box-shadow:none;border:1px solid var(--line);border-radius:10px}
+.pm b{font-weight:600}
+.pays span{box-shadow:none;border:1px solid var(--line);font-weight:500}
+footer b{font-family:Inter,sans-serif;font-weight:500;letter-spacing:.46em}
+.tabs{border:1px solid var(--line);box-shadow:0 10px 30px rgba(18,18,18,.10);border-radius:20px;background:rgba(255,255,255,.94)}
+.sheet{background:rgba(18,18,18,.34)}
+.panel{background:var(--paper);border-radius:22px 22px 0 0}
+@media(min-width:700px){.panel{border-radius:22px}}
+.panel h2{font-size:32px}
+.x{box-shadow:none;border:1px solid var(--line)}
+.lab{color:#3d3b37;font-weight:500;letter-spacing:.02em}
+.chip{box-shadow:none;border:1px solid var(--line);border-radius:10px;font-weight:500}
+.chip[aria-pressed=true]{border-color:var(--ink)}
+.opt{box-shadow:none;border:1px solid var(--line);border-radius:12px;font-weight:500}
+.opt[aria-checked=true]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.opt::before{border-width:1.5px;border-color:#b9b5ad}
+.bubble{box-shadow:none}
+.btn{font-weight:500;letter-spacing:.01em}
+.btn.ghost{box-shadow:none;border:1px solid var(--line)}
+.stick{background:linear-gradient(rgba(247,246,242,0),var(--paper) 22%)}
+.bi{box-shadow:none;border:1px solid var(--line);border-radius:12px}
+.bi select{background:var(--paper)}
+.tot{border:1px solid var(--line);border-radius:12px}
+.tot b{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:30px}
+.tot small{color:var(--safe)}
+.nudge{background:#edf2ee;color:var(--safe);border-radius:12px}
+.nudge button{background:var(--safe)}
+.links a,.links button{box-shadow:none;border:1px solid var(--line);border-radius:12px;font-weight:500}
+input[type=text]{border-radius:12px}
+.member{background:linear-gradient(140deg,#121212,#2a2a28 55%,#5e5c56);box-shadow:none}
+.member .p{font-family:"Instrument Serif",Georgia,serif;font-weight:400}
+.gal img{border-radius:12px}
+.toast{border-radius:10px;font-weight:500}
+/* pago seguro */
+.safe{display:inline-flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin:0;font-size:13px;line-height:1.35;color:var(--ink)}
+.safe svg.i{width:18px;height:18px;color:var(--safe);stroke-width:1.7}
+.safe b{font-weight:600;color:var(--safe)}
+.safe span{color:var(--mute)}
+.hs{margin-top:10px;padding:7px 13px 7px 10px;border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.sc{justify-content:center;width:100%;margin:2px 0 8px;font-size:12.5px}
+.sc svg.i{width:16px;height:16px}
+.ss{justify-content:center;text-align:center;gap:4px 6px;padding:2px 0;font-size:12.5px}
+.ss svg.i{width:16px;height:16px}
+.sf{display:flex !important;align-items:center;gap:5px;margin-top:6px;color:var(--safe) !important;font-size:11.5px !important;font-weight:500;letter-spacing:.01em}
+.sf svg.i{width:14px;height:14px;stroke-width:1.8}
+.sprod .sf{padding:0 4px 4px;margin-top:0}
+.pl{font-style:normal;color:var(--safe);font-weight:600}
+.guar{display:grid;grid-template-columns:minmax(0,1fr);border:1px solid rgba(31,77,58,.22);border-radius:12px;background:#eef3ef;overflow:hidden}
+.guar>div{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;padding:13px 15px;align-items:start}
+.guar>div+div{border-top:1px solid rgba(31,77,58,.14)}
+.guar svg.i{width:24px;height:24px;color:var(--safe);stroke-width:1.5}
+.guar p{margin:0}
+.guar b{display:block;font-size:14.5px;font-weight:600;color:var(--safe)}
+.guar span{display:block;font-size:13.5px;color:#3f4a44;margin-top:1px}
+.sfoot{display:inline-flex;align-items:center;gap:6px;color:var(--safe);font-weight:500}
+.sfoot svg.i{width:16px;height:16px}
+@media(min-width:760px){.guar{grid-template-columns:repeat(3,minmax(0,1fr))}.guar>div+div{border-top:0;border-left:1px solid rgba(31,77,58,.14)}.hot h3{font-size:46px}.head h2{font-size:38px}.sban h3{font-size:44px}.copy h1{font-size:clamp(60px,6.4vw,92px)}}
+@media(max-width:759px){.copy{padding-top:14px}.copy h1{font-size:46px}.sub{margin:6px 0 12px}.word{bottom:62px}.hs{font-size:12.5px;margin-top:8px}.prod:not(.sprod) .off,.lk .off,.hot .off{display:none}.prod small.pr{font-size:12.5px;flex-wrap:nowrap}.prod h3{font-size:18.5px;white-space:nowrap}.prod .dark{width:42px;height:42px}.head h2{font-size:28px}.newin h3{font-size:22px}.newin p{font-size:12.5px}}
+.head .tag{white-space:nowrap}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.9 2.3 1 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.5-.4Z"/></symbol>
+  <symbol id="bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.4"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="next" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="prev" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></symbol>
+  <symbol id="knit" viewBox="0 0 32 32"><path d="m6 7 5 5 5-5 5 5 5-5M6 14l5 5 5-5 5 5 5-5M6 21l5 5 5-5 5 5 5-5"/></symbol>
+  <symbol id="needle" viewBox="0 0 32 32"><path d="M7 25 24 8"/><ellipse cx="25.5" cy="6.5" rx="1.6" ry="2.6" transform="rotate(45 25.5 6.5)"/><path d="M24 9c-6 1-9 6-6 9s9-1 7 6"/></symbol>
+  <symbol id="collar" viewBox="0 0 32 32"><path d="M10 6h12l5 5-4 3v12H9V14l-4-3z"/><path d="M10 6l6 8 6-8M16 14v6"/></symbol>
+  <symbol id="spin3" viewBox="0 0 24 24"><path d="M4 12a8 4 0 0 0 16 0"/><path d="M20 12a8 4 0 0 0-14.5-2.3"/><path d="M5 7v3h3"/></symbol>
+  <symbol id="chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.3-7-11.5a7 7 0 0 1 14 0C19 14.7 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.6c0 4.5 3.2 8.2 7.5 9.4 4.3-1.2 7.5-4.9 7.5-9.4V6z"/><path d="m8.7 12.1 2.3 2.3 4.4-4.7"/></symbol>
+  <symbol id="card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4"/></symbol>
+  <symbol id="qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2M20 14v6h-4M14 18v2"/></symbol>
+  <symbol id="cash" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></symbol>
+  <symbol id="bank" viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5zM5 10v7M9.7 10v7M14.3 10v7M19 10v7M3.5 20h17"/></symbol>
+  <symbol id="truck" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></symbol>
+</svg>
+
+<div class="ship" id="ship"><svg class="i"><use href="#truck"/></svg><span class="l">Envío en el día a todo Montevideo · Al interior despachamos en el día por DAC o la agencia que prefieras</span><span class="s">Envío en el día en Montevideo · Interior por DAC</span></div>
+<header class="nav">
+  <button class="menu" type="button" id="menuBtn" aria-label="Abrir menú"><svg class="i" viewBox="0 0 24 24"><path d="M4 8h16M4 16h11"/></svg>MENÚ</button>
+  <a class="brand" href="#top">PUNTO ONCE</a>
+  <div class="right">
+    <button class="pill desk" type="button" data-reg><svg class="i"><use href="#tag"/></svg><span id="navRegT">10% primera compra</span></button>
+    <button class="pill desk" type="button" data-wa><svg class="i"><use href="#wa"/></svg>Escribinos</button>
+    <button class="ib" type="button" data-bag aria-label="Mi pedido"><svg class="i"><use href="#bag"/></svg><span class="badge" data-count></span></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" id="stage" aria-label="Polo en 3D. Arrastrá para girarla.">
+  <svg class="scene" id="scene" viewBox="0 0 400 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9b6af"/><stop offset=".42" stop-color="#dcd9d3"/><stop offset=".6" stop-color="#f1efeb"/></linearGradient>
+      <linearGradient id="pitch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4e1db"/><stop offset="1" stop-color="#cfcbc3"/></linearGradient>
+      <radialGradient id="glow"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".28" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      <linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2f0ec" stop-opacity="0"/><stop offset=".5" stop-color="#f2f0ec" stop-opacity=".92"/><stop offset="1" stop-color="#f2f0ec" stop-opacity="0"/></linearGradient>
+      <filter id="b1" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.4"/></filter>
+      <filter id="b2" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+      <g id="tower"><path d="M-4 400 2 168h4l6 232z" fill="#a7a39b"/><rect x="-18" y="146" width="44" height="24" rx="3" fill="#9c988f"/><g fill="#fff"><rect x="-14" y="150" width="7" height="6" rx="1"/><rect x="-4" y="150" width="7" height="6" rx="1"/><rect x="6" y="150" width="7" height="6" rx="1"/><rect x="16" y="150" width="6" height="6" rx="1"/><rect x="-14" y="159" width="7" height="6" rx="1"/><rect x="-4" y="159" width="7" height="6" rx="1"/><rect x="6" y="159" width="7" height="6" rx="1"/><rect x="16" y="159" width="6" height="6" rx="1"/></g></g>
+    </defs>
+    <rect x="-700" width="1800" height="700" fill="url(#sky)"/>
+    <rect x="-700" width="1800" height="700" style="fill:var(--a1)" opacity=".07"/>
+    <g opacity=".7" filter="url(#b1)"><use href="#tower" x="-300"/><use href="#tower" x="52"/><use href="#tower" x="336"/><use href="#tower" x="690"/></g>
+    <circle cx="-296" cy="158" r="78" fill="url(#glow)"/><circle cx="56" cy="158" r="78" fill="url(#glow)"/><circle cx="340" cy="158" r="78" fill="url(#glow)"/><circle cx="694" cy="158" r="78" fill="url(#glow)"/>
+    <g filter="url(#b1)" opacity=".6">
+      <path d="M-700 440V378q400-30 810-20l50 4v-12h80v12l50-4q410-10 810 20v62z" fill="#bebab2"/>
+      <path d="M-700 440v-46q450-16 900-12t900 12v46z" fill="#b2aea6"/>
+    </g>
+    <path d="M-700 700V432h1800v268z" fill="url(#pitch)"/>
+    <g fill="#fff" opacity=".22"><rect x="-700" y="446" width="1800" height="12"/><rect x="-700" y="476" width="1800" height="20"/><rect x="-700" y="522" width="1800" height="30"/><rect x="-700" y="590" width="1800" height="44"/></g>
+    <rect x="-700" y="320" width="1800" height="160" fill="url(#fog)" filter="url(#b2)"/>
+    <rect x="-700" y="520" width="1800" height="180" fill="url(#fog)" opacity=".55" filter="url(#b2)"/>
+  </svg>
+  <div class="word" aria-hidden="true">Punto Once</div>
+  <div class="shadow"></div>
+  <canvas id="gl"></canvas>
+  <canvas id="spin"></canvas>
+  <img class="fallback" id="fb" alt="">
+  <div class="copy">
+    <svg class="mark" viewBox="0 0 58 34" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l10 10L24 6l10 10L44 6l10 10"/><path d="M4 20l10 10 10-10 10 10 10-10 10 10" opacity=".55"/></svg>
+    <p class="kick">Polos tejidas · Montevideo, Uruguay</p>
+    <h1>Leyendas tejidas</h1>
+    <p class="sub">Polos de punto inspiradas en camisetas retro. Girala con el dedo, elegí la tuya y te llega hoy si estás en Montevideo.</p>
+    <button class="go" type="button" id="heroGo">Pedir esta polo <i><svg class="i"><use href="#arrow"/></svg></i></button>
+    <div><p class="deal" id="heroDeal"></p></div>
+    <p class="safe hs"><svg class="i"><use href="#shield"/></svg><b>Pago seguro</b><span>En Montevideo pagás al recibir</span></p>
+  </div>
+  <div class="hint" id="hint"><svg class="i" style="width:18px;height:18px"><use href="#spin3"/></svg><span id="hintT">Girala con el dedo</span></div>
+  <div class="loading" id="loading">Cargando polo…</div>
+</section>
+
+<div class="wrap">
+  <div class="card switch">
+    <button class="arw" type="button" id="prevP" aria-label="Polo anterior"><svg class="i"><use href="#prev"/></svg></button>
+    <div class="mid"><h2 id="pname">Jamaica</h2><div class="pr" data-price></div><p class="cl">o 2 por $3.500 con envío gratis</p><p class="safe sc"><svg class="i"><use href="#shield"/></svg><b>Pago seguro</b></p><p id="pdesc"></p><div class="dots" id="dots"></div></div>
+    <button class="arw" type="button" id="nextP" aria-label="Polo siguiente"><svg class="i"><use href="#next"/></svg></button>
+  </div>
+
+  <div class="card launch" id="launch"></div>
+
+  <div class="card combo">
+    <div class="duo" aria-hidden="true"><img src="img/jamaica.webp" alt=""><img src="img/brasil.webp" alt=""></div>
+    <div><span class="tag">COMBO</span><h3>Llevá 2 por $3.500</h3><p>Y el envío va de regalo: gratis en Montevideo y despacho gratis por DAC o tu agencia al interior. Combiná los modelos y talles que quieras.</p></div>
+    <button class="btn ink" type="button" data-combo>Armar mi combo</button>
+  </div>
+
+  <div class="card feat">
+    <div class="fs"><svg class="i"><use href="#shield"/></svg>Pago seguro</div>
+    <div><svg class="i" viewBox="0 0 24 24"><use href="#truck"/></svg>Envío en el día en Montevideo</div>
+    <div><svg class="i" viewBox="0 0 24 24"><use href="#pin"/></svg>Interior por DAC o tu agencia</div>
+    <div><svg class="i" viewBox="0 0 24 24"><use href="#tag"/></svg>10% primera compra</div>
+  </div>
+
+  <div class="card payrow" id="pagos"><span class="tag">PAGO SEGURO</span><h3>Pagás seguro, como te quede cómodo</h3>
+    <div class="guar">
+      <div><svg class="i"><use href="#cash"/></svg><p><b>Pagás al recibir</b><span>En Montevideo le pagás al cadete cuando tenés el pedido en la mano.</span></p></div>
+      <div><svg class="i"><use href="#shield"/></svg><p><b>Tus datos, protegidos</b><span>Con tarjeta o Mercado Pago pagás por POS o en Mercado Pago. Nunca te pedimos los datos de tu tarjeta por chat.</span></p></div>
+      <div><svg class="i"><use href="#chat"/></svg><p><b>Todo confirmado</b><span>Te confirmamos cada pago y cada envío por WhatsApp.</span></p></div>
+    </div>
+    <div class="pgrid">
+      <div class="pm wide"><svg class="i"><use href="#card"/></svg><div><b>Tarjetas de crédito y débito</b><span>Aceptamos todas las que se usan en Uruguay.</span><div class="pays"><span>Visa</span><span>Mastercard</span><span>OCA</span><span>American Express</span><span>Diners</span><span>Cabal</span><span>Creditel</span><span>Líder</span><span>Passcard</span><span>Anda</span><span>Club del Este</span></div></div></div>
+      <div class="pm"><svg class="i"><use href="#qr"/></svg><div><b>Mercado Pago</b><span>Te mandamos el link o el QR.</span></div></div>
+      <div class="pm"><svg class="i"><use href="#cash"/></svg><div><b>Efectivo al cadete</b><span>En la entrega, en Montevideo.</span></div></div>
+      <div class="pm"><svg class="i"><use href="#bank"/></svg><div><b>Transferencia</b><span>En el momento, y te confirmamos al toque.</span></div></div>
+    </div></div>
+
+  <a class="card newin" href="#sandalias"><img src="img/sand/ipanema-1.webp" alt=""><div><span class="tag">NUEVO</span><h3>Sandalias de verano</h3><p id="newinP">4 modelos · talles del 40 al 45</p></div><span class="dark" aria-hidden="true"><svg class="i"><use href="#next"/></svg></span></a>
+
+  <article class="card hot" id="hot"></article>
+
+  <div class="card promo" id="promo"></div>
+
+  <div class="head"><h2>Temporada de verano</h2><span class="tag">DESDE MONTEVIDEO</span></div>
+  <div class="look" id="look"></div>
+
+  <div class="head"><h2>Elegí tu polo</h2><a href="#coleccion">Ver todas ›</a></div>
+  <nav class="rail" id="rail" aria-label="Elegí una polo"></nav>
+
+  <div class="head" id="coleccion"><h2>Colección</h2><span class="tag">6 MODELOS</span></div>
+  <div class="grid" id="grid"></div>
+
+  <div class="head" id="sandalias"><h2>Sandalias</h2><span class="tag">NUEVO · TALLES 40 AL 45</span></div>
+  <div class="card sban"><img src="img/sand/banner.webp" alt="Sandalias Ipanema en verde, suela y negro" loading="lazy"><div class="txt"><span class="tag">VERANO</span><h3>Hechas para estar siempre relajado</h3><p>Inspiradas en el mar, para usarlas donde quieras. Cuatro modelos, talles del 40 al 45.</p></div></div>
+  <div class="grid sgrid" id="sgrid"></div>
+
+  <div class="head"><h2>Cómo comprar</h2></div>
+  <div class="steps">
+    <div class="card step"><svg class="i"><use href="#bag"/></svg><h3>Elegí tus polos</h3><p>Girala, mirala de cerca y sumá al pedido las que quieras.</p></div>
+    <div class="card step"><svg class="i"><use href="#chat"/></svg><h3>Mandá el mensaje listo</h3><p>Se abre WhatsApp con tu pedido escrito. Pago seguro: con tarjeta (todas las de Uruguay), Mercado Pago, transferencia o en efectivo al cadete cuando te llega.</p></div>
+    <div class="card step"><svg class="i"><use href="#truck"/></svg><h3>Te llega hoy</h3><p>En Montevideo te la llevamos en el día. Al interior la despachamos en el día por DAC o por la agencia que prefieras.</p></div>
+  </div>
+
+  <div class="head" id="preguntas"><h2>Preguntas frecuentes</h2></div>
+  <div class="faq">
+    <details><summary>¿Es seguro pagar?</summary><p>Sí. En Montevideo podés pagarle en efectivo al cadete cuando te llega, así que pagás recién cuando tenés el pedido en la mano. Con tarjeta o Mercado Pago pagás por POS o en la plataforma de Mercado Pago: nunca te pedimos los datos de tu tarjeta por WhatsApp. Y te confirmamos cada pago y cada envío por el mismo chat.</p></details>
+    <details><summary>¿La polo es igual a la imagen?</summary><p>Las imágenes reproducen el diseño, los colores y los detalles de cada polo que vendemos. Si querés verla en fotos reales o en video puesta, pedilas por WhatsApp con el mensaje "Más fotos o video".</p></details>
+    <details><summary>¿Cómo funciona el 10% de descuento?</summary><p>Te registrás solo con tu nombre, te damos un código y nos lo mandás por WhatsApp. Lo aplicamos en tu primera compra. Es un código por número de WhatsApp.</p></details>
+    <details><summary>¿Cómo sé qué talle me va?</summary><p>Escribinos con el mensaje "Ayuda con el talle" y te pasamos las medidas de cada talle para que elijas tranquilo.</p></details>
+    <details><summary>¿Qué talles tienen las sandalias?</summary><p>Del 40 al 45, en los cuatro modelos. Si no sabés cuál te va, escribinos por WhatsApp y te ayudamos a elegir.</p></details>
+    <details><summary>¿Hacen envíos? ¿Cuánto tarda?</summary><p>Sí. Estamos en Montevideo, Uruguay. En Montevideo hacemos envíos en el día a todos los barrios. Al interior despachamos en el día por DAC o por la agencia que prefieras, y te pasamos el comprobante por WhatsApp.</p></details>
+    <details><summary>¿Cómo pago?</summary><p>Como prefieras: tarjeta de crédito o débito (aceptamos todas las que se usan en Uruguay: Visa, Mastercard, OCA, American Express, Diners, Cabal, Creditel, Líder, Passcard, Anda, Club del Este y más), Mercado Pago (te mandamos el link o el QR), transferencia en el momento o efectivo. En Montevideo podés pagarle en efectivo al cadete cuando te llega. Lo elegís en tu pedido y lo coordinamos por WhatsApp.</p></details>
+    <details><summary>¿Cómo funciona el combo 2 por $3.500?</summary><p>Llevando 2 polos, de cualquier modelo y talle, pagás $3.500 en total y el envío es gratis: en Montevideo te las llevamos sin costo y al interior el despacho por DAC o tu agencia también es gratis. Si llevás 4, son 2 combos.</p></details>
+    <details><summary>¿Dónde están?</summary><p>Somos Punto Once, una tienda de polos tejidas y sandalias de Montevideo, Uruguay. Vendemos por WhatsApp y enviamos a todo el país.</p></details>
+    <details><summary>¿Tengo que crear una cuenta?</summary><p>No. Comprás directo por WhatsApp. El registro es opcional y solo sirve para tu 10% de bienvenida.</p></details>
+  </div>
+</div>
+</main>
+
+<footer><b>PUNTO ONCE</b><span>Polos tejidas y sandalias · Montevideo, Uruguay</span><span>Envío en el día en Montevideo · Interior por DAC o tu agencia</span><span>Pagás con todas las tarjetas, Mercado Pago, transferencia o efectivo al cadete</span><span class="sfoot"><svg class="i"><use href="#shield"/></svg>Pago seguro</span><span id="numtxt">Atención por WhatsApp</span></footer>
+
+<nav class="tabs" aria-label="Navegación">
+  <a class="on" href="#top"><svg class="i"><use href="#home"/></svg>Inicio</a>
+  <a href="#coleccion"><svg class="i"><use href="#i-grid"/></svg>Colección</a>
+  <button type="button" data-bag><svg class="i"><use href="#bag"/></svg>Pedido<span class="badge" data-count></span></button>
+  <button type="button" data-reg><svg class="i"><use href="#tag"/></svg>Mi 10%</button>
+  <button type="button" data-wa><svg class="i"><use href="#wa"/></svg>WhatsApp</button>
+</nav>
+<div class="toast" id="toast" role="status"></div>
+
+<div class="sheet" id="menuSheet" role="dialog" aria-modal="true" aria-label="Menú">
+  <div class="panel"><button class="x" type="button" data-close aria-label="Cerrar">×</button><h2>Menú</h2>
+    <div class="links"><a href="#coleccion" data-close>Colección <span>›</span></a><a href="#sandalias" data-close>Sandalias <span>›</span></a><a href="#preguntas" data-close>Preguntas frecuentes <span>›</span></a><button type="button" data-reg>Mi 10% de bienvenida <span>›</span></button><button type="button" data-bag>Mi pedido <span>›</span></button><button type="button" data-wa>Escribinos por WhatsApp <span>›</span></button></div>
+  </div>
+</div>
+
+<div class="sheet" id="msgSheet" role="dialog" aria-modal="true" aria-labelledby="msgT">
+  <div class="panel">
+    <button class="x" type="button" data-close aria-label="Cerrar">×</button>
+    <div class="ph" id="msgProd"></div>
+    <p class="sub2">Elegí qué nos querés decir. Te abrimos WhatsApp con el mensaje escrito y lo podés cambiar antes de enviarlo.</p>
+    <span class="lab">Tu talle (opcional)</span><div class="chips" id="msgSizes"></div>
+    <span class="lab">Tu mensaje</span><div class="opts" id="msgOpts" role="radiogroup" aria-label="Mensajes listos"></div>
+    <div class="bubble" id="msgPrev"></div>
+    <div class="stick"><p class="safe ss"><svg class="i"><use href="#shield"/></svg><b>Pago seguro</b><span>· En Montevideo pagás al recibir</span></p><a class="btn wa" id="msgGo" href="#"><svg><use href="#wa"/></svg>Abrir WhatsApp y enviar</a><button class="btn ghost" type="button" id="msgAdd"><svg class="i"><use href="#plus"/></svg>Sumar al pedido</button><p class="fine" id="msgNote"></p><p class="fine">Envío en el día a todo Montevideo · Al interior despachamos en el día por DAC o la agencia que prefieras.</p></div>
+  </div>
+</div>
+
+<div class="sheet" id="bagSheet" role="dialog" aria-modal="true" aria-labelledby="bagT">
+  <div class="panel">
+    <button class="x" type="button" data-close aria-label="Cerrar">×</button>
+    <h2 id="bagT">Mi pedido</h2>
+    <div class="bag" id="bagList"></div>
+    <div id="bagNudge"></div>
+    <div class="tot" id="bagTot"></div>
+    <span class="lab" id="payLab">¿Cómo querés pagar? <em class="pl">· Pago seguro</em></span><div class="chips" id="payChips"></div>
+    <div class="stick"><p class="safe ss"><svg class="i"><use href="#shield"/></svg><b>Pago seguro</b><span>· En Montevideo pagás al recibir</span></p><a class="btn wa" id="bagGo" href="#"><svg><use href="#wa"/></svg>Enviar pedido por WhatsApp</a><p class="fine" id="bagNote"></p><p class="fine">Envío en el día a todo Montevideo · Al interior despachamos en el día por DAC o la agencia que prefieras.</p></div>
+  </div>
+</div>
+
+<div class="sheet" id="sandSheet" role="dialog" aria-modal="true" aria-labelledby="sandT">
+  <div class="panel">
+    <button class="x" type="button" data-close aria-label="Cerrar">×</button>
+    <div><span class="tag" id="sandK"></span><h2 id="sandT"></h2><div class="pr" id="sandP" style="margin-top:6px"></div></div>
+    <div class="gal" id="sandGal"></div>
+    <span class="lab">Color</span><div class="chips" id="sandCol"></div>
+    <span class="lab">Tu talle</span><div class="chips" id="sandSz"></div>
+    <span class="lab">Tu mensaje</span><div class="opts" id="sandOpts" role="radiogroup" aria-label="Mensajes listos"></div>
+    <div class="bubble" id="sandPrev"></div>
+    <div class="stick"><p class="safe ss"><svg class="i"><use href="#shield"/></svg><b>Pago seguro</b><span>· En Montevideo pagás al recibir</span></p><a class="btn wa" id="sandGo" href="#"><svg><use href="#wa"/></svg>Abrir WhatsApp y enviar</a><button class="btn ghost" type="button" id="sandAdd"><svg class="i"><use href="#plus"/></svg>Sumar al pedido</button><p class="fine">Talles del 40 al 45 · Envío en el día a todo Montevideo · Al interior despachamos en el día por DAC o la agencia que prefieras.</p></div>
+  </div>
+</div>
+
+<div class="sheet" id="regSheet" role="dialog" aria-modal="true" aria-labelledby="regT">
+  <div class="panel">
+    <button class="x" type="button" data-close aria-label="Cerrar">×</button>
+    <h2 id="regT">10% en tu primera compra</h2>
+    <form id="regForm" style="display:grid;gap:14px">
+      <p class="sub2">Solo tu nombre. Sin contraseña, sin mail, sin tarjeta.</p>
+      <label class="lab" for="regName">¿Cómo te llamás?</label>
+      <input type="text" id="regName" autocomplete="given-name" maxlength="30" placeholder="Tu nombre" required>
+      <span class="lab">Tu talle (opcional)</span><div class="chips" id="regSizes"></div>
+      <label class="check"><input type="checkbox" id="regNews">Avisame cuando lleguen modelos nuevos</label>
+      <button class="btn ink" type="submit">Activar mi 10%</button>
+      <p class="fine">Válido en tu primera compra, un código por número de WhatsApp. Usamos tu nombre solo para tu descuento.</p>
+    </form>
+    <div id="regDone" style="display:none;gap:14px">
+      <div class="member"><div class="t"><span>PUNTO ONCE</span><span id="mName"></span></div><div><div class="p">10% OFF</div><div style="font-size:13px;opacity:.8">Primera compra</div></div><div class="c" id="mCode"></div></div>
+      <p class="sub2" style="margin:0">Mandanos tu código por WhatsApp para dejarlo guardado. También se agrega solo a tus mensajes y pedidos desde la web.</p>
+      <a class="btn wa" id="regGo" href="#"><svg><use href="#wa"/></svg>Guardar en WhatsApp</a>
+      <button class="btn ghost" type="button" data-close>Seguir mirando polos</button>
+    </div>
+  </div>
+</div>
+
+<script>
+{
+/* Número de WhatsApp en formato internacional, sin + ni espacios. Ej: 59899123456 */
+const WA = '59898837397';
+const BRAND = 'Punto Once', PREFIX = 'P11', HOT = 'ondas';
+const SIZES = ['S','M','L','XL','XXL','No sé'];
+/* Precio de lanzamiento: termina en esta fecha y hora (Montevideo). Al vencer, la web vuelve sola al precio normal. */
+const REG = 2900, SALE = 1890, PROMO_END = new Date('2026-11-29T23:59:59-03:00'), PROMO_TXT = 'el domingo 29 de noviembre a las 23:59';
+const promo = () => Date.now() < PROMO_END;
+const money = n => '$' + n.toLocaleString('es-UY');
+const PCT = Math.floor((1 - SALE / REG) * 100);
+const price = () => promo() ? SALE : REG;
+/* Combo: cada 2 polos, $3.500 con envío gratis */
+const PAIR = 3500, PAYS = ['Tarjeta de crédito o débito','Mercado Pago','Efectivo al cadete','Transferencia'];
+const totalFor = n => Math.floor(n / 2) * PAIR + (n % 2) * price();
+const priceHTML = () => promo() ? `<span class="now">${money(SALE)}</span><span class="was">${money(REG)}</span><span class="off">−${PCT}%</span>` : `<span class="now">${money(REG)}</span>`;
+const P = [
+  {id:'jamaica',  name:'Jamaica',      a1:'#c9a227',a2:'#1f8a62',desc:'Negra con franjas amarillas y verdes, escudo bordado.'},
+  {id:'brasil',   name:'Brasil 9',     a1:'#d9ac21',a2:'#0f7a52',desc:'Amarilla con paneles verdes y el 9 tejido.'},
+  {id:'alemania', name:'Alemania 20',  a1:'#d06a1c',a2:'#e2b23a',desc:'Crudo con la onda negra, roja y amarilla.'},
+  {id:'milano',   name:'Milano',       a1:'#4fb3cf',a2:'#1e3a6b',desc:'Rayas celeste y azul noche, letras bordadas.'},
+  {id:'ondas',    name:'Ondas',        a1:'#5b93d6',a2:'#c8303f',desc:'Zigzag celeste y azul marino, vivo rojo en el cuello.'},
+  {id:'argentina',name:'Argentina 10', a1:'#5f9ad6',a2:'#d9dee4',desc:'Celeste con rombos al costado y el 10.'}
+];
+const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+const pic = p => p.spin ? `img/${p.id}/00.webp` : `img/${p.id}.webp`;
+const tile = p => `<span class="tile"><img src="${pic(p)}" alt="" loading="lazy"></span>`;
+const store = {get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const toast = t => {const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2400)};
+const waUrl = m => WA ? 'https://wa.me/'+WA+'?text='+encodeURIComponent(m) : '#';
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let reg = store.get('tfc_reg'), size = store.get('tfc_size') || '', bag = store.get('tfc_bag') || [], cur = -1;
+if (WA) $('#numtxt').textContent = 'WhatsApp +' + WA.replace(/^598(\d{2})(\d{3})(\d{3})$/,'598 $1 $2 $3');
+document.addEventListener('click',e=>{const a=e.target.closest('a.btn[href="#"]');if(a&&!WA){e.preventDefault();toast('Falta cargar el número de WhatsApp')}});
+const codeLine = () => reg ? `\nTengo mi 10% de bienvenida, código ${reg.code}.` : '';
+
+/* ---------- mensajes listos ---------- */
+function messages(p){
+  const t = size && size!=='No sé' ? ` en talle ${size}` : '', dunno = size==='No sé' ? ' No sé bien qué talle me va, ¿me ayudás?' : '';
+  const L = p ? [
+    ['Quiero comprarla', `Hola Punto Once! Quiero comprar la polo ${p.name}${t} a ${money(price())}. ¿Cómo hago para pagarla y recibirla?${dunno}`],
+    ['Combo 2 por $3.500', `Hola Punto Once! Quiero el combo de 2 polos por ${money(PAIR)} con envío gratis. Una es la ${p.name}${t}, ¿qué otra me recomendás?`],
+    ['Talles disponibles', `Hola Punto Once! ¿Qué talles te quedan de la polo ${p.name}?`],
+    ['Envío hoy en Montevideo', `Hola Punto Once! Quiero la polo ${p.name}${t}. Estoy en Montevideo, ¿me la mandás hoy? ¿Cuánto sale el envío a mi barrio?`],
+    ['Envío al interior', `Hola Punto Once! Quiero la polo ${p.name}${t}. Estoy en el interior, ¿me la despachás hoy por DAC? ¿Cuánto sale?`],
+    ['Ayuda con el talle', `Hola Punto Once! Me gusta la polo ${p.name} pero no sé qué talle elegir. ¿Me pasás las medidas de cada talle?`],
+    ['Más fotos o video', `Hola Punto Once! ¿Me mandás más fotos o un video de la polo ${p.name} puesta?`]
+  ] : [
+    ['Modelos disponibles', 'Hola Punto Once! Vi la web. ¿Qué modelos y talles tenés disponibles?'],
+    ['Combo 2 por $3.500', `Hola Punto Once! Quiero el combo de 2 polos por ${money(PAIR)} con envío gratis. ¿Qué modelos tenés en mi talle?`],
+    ['Quiero comprar', `Hola Punto Once! Quiero comprar una polo${t} a ${money(price())}. ¿Cómo es el pago y la entrega?${dunno}`],
+    ['Envíos', 'Hola Punto Once! ¿Cómo son los envíos? Si compro hoy, ¿me llega hoy?'],
+    ['Talles', 'Hola Punto Once! ¿Qué talles tienen en las polos? ¿Me pasás las medidas?'],
+    ['Más fotos o videos', 'Hola Punto Once! ¿Me mandás fotos o videos de las polos puestas?']
+  ];
+  return L.map(([k,m])=>({k, m: m + codeLine()}));
+}
+let msgP=null,msgSel=0;
+function chips(el,onPick){el.innerHTML=SIZES.map(s=>`<button type="button" class="chip" aria-pressed="${s===size}">${s}</button>`).join('');
+  el.onclick=e=>{const b=e.target.closest('.chip');if(!b)return;size=size===b.textContent?'':b.textContent;store.set('tfc_size',size);
+    el.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.textContent===size));onPick&&onPick()}}
+function renderMsgs(){const L=messages(msgP);
+  $('#msgOpts').innerHTML=L.map((o,i)=>`<button type="button" class="opt" role="radio" aria-checked="${i===msgSel}" data-i="${i}">${o.k}</button>`).join('');
+  $('#msgPrev').textContent=L[msgSel].m;$('#msgGo').href=waUrl(L[msgSel].m);
+  $('#msgNote').textContent=reg?`Tu código ${reg.code} ya va en el mensaje.`:'Registrate y sumá 10% a tu primera compra.'}
+$('#msgOpts').addEventListener('click',e=>{const b=e.target.closest('.opt');if(b){msgSel=+b.dataset.i;renderMsgs()}});
+function openMsgs(p){msgP=p;msgSel=0;$('#msgAdd').style.display=p?'flex':'none';
+  $('#msgProd').innerHTML=p?`${tile(p)}<h2 id="msgT">Polo ${esc(p.name)}</h2>`:`<h2 id="msgT">Escribinos por WhatsApp</h2>`;
+  chips($('#msgSizes'),renderMsgs);renderMsgs();openSheet('#msgSheet')}
+$('#msgAdd').addEventListener('click',()=>{addToBag(msgP,size);closeSheets()});
+
+/* ---------- pedido ---------- */
+const isS = it => it.t === 's', sById = id => SAND.find(x => x.id === id);
+/* Combo 2 por $3.500 solo cuenta polos; las sandalias suman su precio aparte */
+function bagCalc(){const np=bag.filter(it=>!isS(it)).length,ss=bag.filter(isS).map(it=>sById(it.id)).filter(Boolean),
+  sTot=ss.reduce((a,s)=>a+(s.price||0),0),sWas=ss.reduce((a,s)=>a+(s.was||s.price||0),0);
+  return {np,ns:ss.length,tot:totalFor(np)+sTot,save:(REG*np-totalFor(np))+(sWas-sTot)}}
+function renderBagCount(){const n=bag.length;$$('[data-count]').forEach(b=>b.textContent=n||'')}
+function addToBag(p,s=''){bag.push({id:p.id,size:s&&s!=='No sé'?s:''});store.set('tfc_bag',bag);renderBagCount();
+  const np=bag.filter(it=>!isS(it)).length;
+  toast(np%2?`${p.name} sumada. Sumá otra y llevás 2 por ${money(PAIR)} con envío gratis`:`Combo armado: 2 por ${money(PAIR)} con envío gratis`)}
+let pay=store.get('tfc_pay')||'';if(!PAYS.includes(pay))pay='';
+function bagMsg(){const {np,tot}=bagCalc(),lines=bag.map(it=>{const z=it.size?'talle '+it.size:'talle a definir';
+    if(isS(it)){const s=sById(it.id);return `• Sandalia ${s.name} ${it.c.toLowerCase()} – ${z} – ${money(s.price)}`}
+    return `• Polo ${P.find(x=>x.id===it.id).name} – ${z}`});
+  const deal=np>=2?`${Math.floor(np/2)>1?Math.floor(np/2)+' combos':'Combo'} 2 polos por ${money(PAIR)}${np%2?` + 1 polo a ${money(price())}`:''} · envío gratis`:np===1?`1 polo a ${money(price())}`:'';
+  return `Hola Punto Once! Quiero hacer este pedido:\n${lines.join('\n')}${deal?'\n'+deal:''}\nTotal: ${money(tot)}${pay?`\nPago: ${pay}`:''}\n¿Coordinamos la entrega?${codeLine()}`}
+function renderBag(){
+  $('#bagList').innerHTML=bag.length?bag.map((it,i)=>{
+    if(isS(it)){const s=sById(it.id);
+      return `<div class="bi"><span class="tile st"><img src="${sColPic(it)}" alt=""></span><b>${esc(s.name)}<small>${esc(it.c)} · ${money(s.price)}</small></b><select data-i="${i}" aria-label="Talle de ${esc(s.name)}"><option value="">Talle</option>${SSZ.slice(0,6).map(z=>`<option${z===it.size?' selected':''}>${z}</option>`).join('')}</select><button class="rm" type="button" data-rm="${i}" aria-label="Quitar">×</button></div>`}
+    const p=P.find(x=>x.id===it.id);
+    return `<div class="bi">${tile(p)}<b>${esc(p.name)}</b><select data-i="${i}" aria-label="Talle de ${esc(p.name)}"><option value="">Talle</option>${SIZES.slice(0,5).map(s=>`<option${s===it.size?' selected':''}>${s}</option>`).join('')}</select><button class="rm" type="button" data-rm="${i}" aria-label="Quitar">×</button></div>`}).join('')
+    :`<p class="empty">Tu pedido está vacío. Sumá polos o sandalias con el botón +.</p>`;
+  const n=bag.length,{np,ns,tot,save}=bagCalc(),what=!ns?(n>1?'polos':'polo'):!np?(n>1?'sandalias':'sandalia'):'productos';
+  $('#bagTot').innerHTML=n?`<span>Total (${n} ${what})<small${np>=2?'':' class="m"'}>${np>=2?'Combo aplicado · envío gratis':'Envío a coordinar'}</small>${save>0?`<small>Ahorrás ${money(save)}</small>`:''}</span><b>${money(tot)}</b>`:'';
+  $('#bagNudge').innerHTML=np%2?`<div class="nudge">Sumá 1 polo más y te quedan las 2 a ${money(PAIR)} con envío gratis.<button type="button" data-more>Elegir otra polo</button></div>`:'';
+  $('#payLab').style.display=$('#payChips').style.display=n?'':'none';
+  $('#payChips').innerHTML=PAYS.map(x=>`<button type="button" class="chip" aria-pressed="${x===pay}">${x}</button>`).join('');
+  $('#bagGo').style.display=bag.length?'flex':'none';$('#bagGo').href=waUrl(bagMsg());
+  $('#bagNote').textContent=bag.length?(reg?`Tu código ${reg.code} va en el mensaje.`:'Si no sabés tu talle, dejalo así y te ayudamos.'):'';
+}
+$('#payChips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;pay=pay===b.textContent?'':b.textContent;store.set('tfc_pay',pay);renderBag()});
+$('#bagNudge').addEventListener('click',e=>{if(e.target.closest('[data-more]')){closeSheets(true);$('#coleccion').scrollIntoView({behavior:reduce?'auto':'smooth'})}});
+$('#bagList').addEventListener('change',e=>{const s=e.target.closest('select');if(s){bag[+s.dataset.i].size=s.value;store.set('tfc_bag',bag);renderBag()}});
+$('#bagList').addEventListener('click',e=>{const r=e.target.closest('[data-rm]');if(r){bag.splice(+r.dataset.rm,1);store.set('tfc_bag',bag);renderBag();renderBagCount()}});
+renderBagCount();
+
+/* ---------- registro 10% ---------- */
+function renderPromo(){
+  $('#promo').innerHTML=reg?`<span class="big">10%</span><p><b>Tu 10% está activo, ${esc(reg.name)}</b>Código ${esc(reg.code)}. Va solo en tus mensajes.</p><button type="button" data-reg>Ver código</button>`
+    :`<span class="big">10%</span><p><b>En tu primera compra</b>Registrate solo con tu nombre, en 10 segundos.</p><button type="button" data-reg>Quiero mi 10%</button>`;
+  $('#navRegT').textContent=reg?'10% activo':'10% primera compra'}
+function showDone(){$('#regForm').style.display='none';$('#regDone').style.display='grid';$('#mName').textContent=reg.name.toUpperCase();$('#mCode').textContent=reg.code;
+  $('#regGo').href=waUrl(`Hola Punto Once! Me registré en la web de ${BRAND}. Soy ${reg.name}${reg.size&&reg.size!=='No sé'?`, talle ${reg.size}`:''}. Mi código de bienvenida es ${reg.code} para el 10% en mi primera compra.${reg.news?' Avisame cuando lleguen modelos nuevos.':''}`)}
+function openReg(){if(reg)showDone();else{$('#regForm').style.display='grid';$('#regDone').style.display='none';chips($('#regSizes'))}
+  openSheet('#regSheet');if(!reg)setTimeout(()=>$('#regName').focus(),60)}
+$('#regForm').addEventListener('submit',e=>{e.preventDefault();const name=$('#regName').value.trim().replace(/\s+/g,' ');
+  if(name.length<2){toast('Escribí tu nombre');return}
+  const slug=name.split(' ')[0].normalize('NFD').replace(/[^A-Za-z]/g,'').toUpperCase().slice(0,8)||'CLIENTE';
+  const rnd=Array.from({length:3},()=>'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*31)]).join('');
+  reg={name:name.split(' ')[0],code:`${PREFIX}-${slug}-${rnd}`,size,news:$('#regNews').checked,at:Date.now()};store.set('tfc_reg',reg);renderPromo();showDone()});
+
+/* ---------- hojas ---------- */
+let lastFocus=null;
+function openSheet(id){closeSheets(true);lastFocus=document.activeElement;$(id).classList.add('on');document.body.classList.add('lock');setTimeout(()=>$(id).querySelector('.x').focus(),30)}
+function closeSheets(keep){$$('.sheet.on').forEach(s=>s.classList.remove('on'));document.body.classList.remove('lock');if(!keep&&lastFocus&&lastFocus.focus)lastFocus.focus()}
+$$('.sheet').forEach(s=>s.addEventListener('click',e=>{if(e.target===s||e.target.closest('[data-close]'))closeSheets()}));
+addEventListener('keydown',e=>{if(e.key==='Escape')closeSheets()});
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-reg]'))openReg();
+  else if(e.target.closest('[data-bag]')){renderBag();openSheet('#bagSheet')}
+  else if(e.target.closest('[data-wa]'))openMsgs(null);
+});
+$('#menuBtn').addEventListener('click',()=>openSheet('#menuSheet'));
+document.addEventListener('click',e=>{if(!e.target.closest('[data-combo]'))return;
+  if(bag.length){renderBag();openSheet('#bagSheet')}else{$('#coleccion').scrollIntoView({behavior:reduce?'auto':'smooth'});toast('Tocá + en 2 polos para armar tu combo')}});
+/* barra superior: alterna envío y combo */
+{const SH=[['Envío en el día a todo Montevideo · Al interior despachamos en el día por DAC o la agencia que prefieras','Envío en el día en Montevideo · Interior por DAC'],
+  [`Llevá 2 polos por ${money(PAIR)} con envío gratis · Pagás con todas las tarjetas o Mercado Pago`,`2 polos por ${money(PAIR)} con envío gratis`],
+  ['Pago seguro · En Montevideo pagás cuando te llega · Nunca te pedimos datos de tarjeta por chat','Pago seguro · pagás al recibir'],
+  ['Todas las tarjetas, Mercado Pago, transferencia o efectivo al cadete','Todas las tarjetas y Mercado Pago']];
+ let k=0;setInterval(()=>{k=(k+1)%SH.length;$('#ship .l').textContent=SH[k][0];$('#ship .s').textContent=SH[k][1]},4500)}
+$('#heroGo').addEventListener('click',()=>openMsgs(P[cur]));
+renderPromo();
+
+/* ---------- contenido ---------- */
+const hot=P.find(p=>p.id===HOT);
+$('#hot').innerHTML=`<span class="tile photo"><img src="img/look/${hot.id}.webp" alt="Polo ${hot.name} flotando en una piscina" loading="lazy"></span><div class="txt"><span class="tag">DESTACADA</span><h3>${hot.name}</h3><p>${hot.desc}</p><div class="row"><span><span class="price pr" data-price></span><small class="sf"><svg class="i"><use href="#shield"/></svg>Pago seguro</small></span><button class="dark" type="button" aria-label="Pedir ${hot.name}" id="hotGo"><svg class="i"><use href="#arrow"/></svg></button></div></div>`;
+$('#hotGo').addEventListener('click',()=>openMsgs(hot));
+$('#hot .tile').addEventListener('click',()=>{select(P.indexOf(hot));scrollTo({top:0,behavior:reduce?'auto':'smooth'})});
+$('#look').innerHTML=P.map((p,i)=>`<article class="card lk"><img src="img/look/${p.id}.webp" alt="Polo ${p.name} flotando en una piscina" loading="lazy"><div class="meta"><div><h3>${p.name}</h3><small class="pr" data-price></small><small class="sf"><svg class="i"><use href="#shield"/></svg>Pago seguro</small></div><div style="display:flex;gap:8px"><button class="v" type="button" data-view="${i}">Ver 3D</button><button class="dark" type="button" data-add="${i}" aria-label="Sumar ${p.name} al pedido"><svg class="i"><use href="#plus"/></svg></button></div></div></article>`).join('');
+$('#look').addEventListener('click',e=>{const v=e.target.closest('[data-view]'),a=e.target.closest('[data-add]');if(v){select(+v.dataset.view);scrollTo({top:0,behavior:reduce?'auto':'smooth'})}if(a)addToBag(P[+a.dataset.add])});
+$('#rail').innerHTML=P.map((p,i)=>`<button type="button" data-i="${i}" aria-pressed="false">${tile(p)}${p.name}</button>`).join('');
+$('#rail').addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(b){select(+b.dataset.i);scrollTo({top:0,behavior:reduce?'auto':'smooth'})}});
+$('#grid').innerHTML=P.map((p,i)=>`<article class="card prod"><button type="button" class="tile" data-view="${i}" aria-label="Ver ${p.name} en 3D" style="border:0">${p.spin?'<span class="v3d">360°</span>':'<span class="v3d">3D</span>'}<img src="${pic(p)}" alt="Polo ${p.name}" loading="lazy"></button><div class="meta"><div><h3>${p.name}</h3><small class="pr" data-price></small><small class="sf"><svg class="i"><use href="#shield"/></svg>Pago seguro</small></div><button class="dark" type="button" data-add="${i}" aria-label="Sumar ${p.name} al pedido"><svg class="i"><use href="#plus"/></svg></button></div></article>`).join('');
+$('#grid').addEventListener('click',e=>{const v=e.target.closest('[data-view]'),a=e.target.closest('[data-add]');
+  if(v){select(+v.dataset.view);scrollTo({top:0,behavior:reduce?'auto':'smooth'})}
+  if(a)addToBag(P[+a.dataset.add])});
+$('#dots').innerHTML=P.map((p,i)=>`<button type="button" data-i="${i}" aria-label="${p.name}"></button>`).join('');
+$('#dots').addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(b)select(+b.dataset.i)});
+$('#prevP').addEventListener('click',()=>select((cur-1+P.length)%P.length));
+$('#nextP').addEventListener('click',()=>select((cur+1)%P.length));
+const tabs=$$('.tabs a');addEventListener('scroll',()=>{const c=$('#coleccion').getBoundingClientRect().top<innerHeight*.5;tabs[0].classList.toggle('on',!c);tabs[1].classList.toggle('on',c)},{passive:true});
+
+/* ---------- sandalias ---------- */
+/* price: precio de venta al público en pesos. Si es null, la web muestra "Consultá el precio" y el mensaje lo pregunta. */
+const SAND = [
+  {id:'ipanema',  name:'Ipanema',  kind:'Dos hebillas',   price:990,  was:1590, n:4, colors:[['Suela','#b5814f',0],['Verde','#6b6a4b',2],['Negro','#1f1f21',3]]},
+  {id:'recreio',  name:'Recreio',  kind:'Zueco',          price:1190, was:1790, n:4, colors:[['Marrón','#5a3424',0],['Arena','#cdb79b',1],['Negro','#1f1f21',2]]},
+  {id:'arpoador', name:'Arpoador', kind:'Zueco con tira', price:1290, was:1990, n:3, colors:[['Marrón','#6b3e2a',0],['Arena','#d4c3a8',1],['Negro','#1f1f21',2]]},
+  {id:'leblon',   name:'Leblon',   kind:'Zueco bicolor',  price:1190, was:1790, n:4, colors:[['Blanco y gris','#ece7dc',0],['Negro y gris','#2a2a2c',2]]}
+];
+/* was: precio anterior que se muestra tachado. Sacalo (o ponelo en null) para mostrar solo el precio actual. */
+const SSZ = ['40','41','42','43','44','45','No sé'];
+const sPic = (s,k=1) => `img/sand/${s.id}-${k}.webp`;
+const sPrice = s => s.price ? `<span class="now">${money(s.price)}</span>${s.was>s.price?`<span class="was">${money(s.was)}</span><span class="off">−${Math.floor((1-s.price/s.was)*100)}%</span>`:''}` : `<span class="ask">Consultá el precio</span>`;
+const sColPic = it => {const s=sById(it.id),c=s.colors.find(x=>x[0]===it.c);return sPic(s,(c?c[2]:0)+1)};
+function addSand(s,c,z){bag.push({t:'s',id:s.id,c,size:z&&z!=='No sé'?z:''});store.set('tfc_bag',bag);renderBagCount();toast(`Sandalia ${s.name} sumada al pedido`)}
+bag = bag.filter(it => isS(it) ? sById(it.id) : P.find(x=>x.id===it.id)); store.set('tfc_bag',bag); renderBagCount();
+{const m=Math.min(...SAND.filter(s=>s.price).map(s=>s.price));$('#newinP').textContent=(isFinite(m)?`Desde ${money(m)} · `:'4 modelos · ')+'talles del 40 al 45'}
+let ssize = store.get('tfc_ssize') || '', sCur = null, sCol = 0, sSel = 0;
+function sandMsgs(s){
+  const c = ` en ${s.colors[sCol][0].toLowerCase()}`, t = ssize && ssize!=='No sé' ? `, talle ${ssize}` : '', dunno = ssize==='No sé' ? ' No sé bien qué talle me va, ¿me ayudás?' : '', pr = s.price ? ` a ${money(s.price)}` : '';
+  const L = [
+    ['Quiero comprarlas', `Hola Punto Once! Quiero las sandalias ${s.name}${c}${t}${pr}. ${s.price ? '¿Cómo hago para pagarlas y recibirlas?' : '¿Qué precio tienen y cómo hago para recibirlas?'}${dunno}`],
+    ...(s.price ? [] : [['¿Qué precio tienen?', `Hola Punto Once! ¿Qué precio tienen las sandalias ${s.name}${c}?`]]),
+    ['Talles disponibles', `Hola Punto Once! ¿Qué talles te quedan de las sandalias ${s.name}${c}?`],
+    ['Envío hoy en Montevideo', `Hola Punto Once! Quiero las sandalias ${s.name}${c}${t}. Estoy en Montevideo, ¿me las mandás hoy? ¿Cuánto sale el envío a mi barrio?`],
+    ['Envío al interior', `Hola Punto Once! Quiero las sandalias ${s.name}${c}${t}. Estoy en el interior, ¿me las despachás hoy por DAC? ¿Cuánto sale?`],
+    ['Más fotos o video', `Hola Punto Once! ¿Me mandás más fotos o un video de las sandalias ${s.name}${c}?`]
+  ];
+  return L.map(([k,m])=>({k, m: m + codeLine()}));
+}
+function renderSand(){const s=sCur,L=sandMsgs(s);if(sSel>=L.length)sSel=0;
+  $('#sandCol').innerHTML=s.colors.map(([n,h],i)=>`<button type="button" class="chip" data-c="${i}" aria-pressed="${i===sCol}"><span class="sw1" style="background:${h}"></span>${n}</button>`).join('');
+  $('#sandSz').innerHTML=SSZ.map(z=>`<button type="button" class="chip" data-z="${z}" aria-pressed="${z===ssize}">${z}</button>`).join('');
+  $('#sandOpts').innerHTML=L.map((o,i)=>`<button type="button" class="opt" role="radio" aria-checked="${i===sSel}" data-i="${i}">${o.k}</button>`).join('');
+  $('#sandPrev').textContent=L[sSel].m;$('#sandGo').href=waUrl(L[sSel].m)}
+function openSand(i){sCur=SAND[i];sCol=0;sSel=0;
+  $('#sandK').textContent=`SANDALIA · ${sCur.kind.toUpperCase()}`;$('#sandT').textContent=sCur.name;$('#sandP').innerHTML=sPrice(sCur);
+  $('#sandGal').innerHTML=Array.from({length:sCur.n},(_,k)=>`<img src="${sPic(sCur,k+1)}" alt="Sandalia ${esc(sCur.name)}, foto ${k+1}" loading="lazy">`).join('');
+  $('#sandAdd').style.display=sCur.price?'flex':'none';
+  renderSand();openSheet('#sandSheet');$('#sandGal').scrollLeft=0}
+$('#sandCol').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;sCol=+b.dataset.c;renderSand();
+  const g=$('#sandGal'),im=g.children[sCur.colors[sCol][2]];if(im)g.scrollTo({left:im.offsetLeft-g.offsetLeft-(g.clientWidth-im.clientWidth)/2,behavior:reduce?'auto':'smooth'})});
+$('#sandSz').addEventListener('click',e=>{const b=e.target.closest('[data-z]');if(!b)return;ssize=ssize===b.dataset.z?'':b.dataset.z;store.set('tfc_ssize',ssize);renderSand()});
+$('#sandOpts').addEventListener('click',e=>{const b=e.target.closest('.opt');if(b){sSel=+b.dataset.i;renderSand()}});
+$('#sandAdd').addEventListener('click',()=>{addSand(sCur,sCur.colors[sCol][0],ssize);closeSheets()});
+$('#sgrid').innerHTML=SAND.map((s,i)=>`<article class="card prod sprod"><button type="button" class="ph2" data-s="${i}" aria-label="Ver sandalia ${s.name}"><img src="${sPic(s)}" alt="Sandalia ${s.name}" loading="lazy"></button><div class="meta"><div><h3>${s.name}</h3><small>${s.kind}</small></div><button class="dark" type="button" data-s="${i}" aria-label="Pedir sandalia ${s.name}"><svg class="i"><use href="#arrow"/></svg></button></div><div class="sx"><span class="sw">${s.colors.map(([n,h])=>`<i style="background:${h}" title="${n}"></i>`).join('')}</span><span class="pr">${sPrice(s)}</span></div><small class="sf"><svg class="i"><use href="#shield"/></svg>Pago seguro</small></article>`).join('');
+$('#sgrid').addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(b)openSand(+b.dataset.s)});
+
+/* ---------- precios y cuenta regresiva ---------- */
+const pad=n=>String(n).padStart(2,'0');
+function renderPrices(){$$('[data-price]').forEach(e=>e.innerHTML=priceHTML());
+  $('#launch').innerHTML=promo()?`<div><span class="tag">PRECIO DE LANZAMIENTO</span><h3>Todas las polos a ${money(SALE)}</h3><p>Antes ${money(REG)}: ahorrás ${money(REG-SALE)} por polo. La promo termina ${PROMO_TXT}.</p></div><div class="cd" aria-label="Tiempo que queda"><div><b id="cdD">0</b><span>días</span></div><div><b id="cdH">00</b><span>horas</span></div><div><b id="cdM">00</b><span>min</span></div><div><b id="cdS">00</b><span>seg</span></div></div>`:'';
+  if(!promo())$('#heroDeal').textContent=''}
+let wasPromo=promo();
+function tick(){const ms=PROMO_END-Date.now();
+  if(ms<=0){if(wasPromo){wasPromo=false;renderPrices();renderMsgs&&msgP!==undefined&&$('#msgSheet').classList.contains('on')&&renderMsgs()}return}
+  const d=Math.floor(ms/864e5),h=Math.floor(ms/36e5)%24,m=Math.floor(ms/6e4)%60,sec=Math.floor(ms/1e3)%60;
+  $('#heroDeal').innerHTML=`<span class="off">−${PCT}%</span><span class="dl">Precio de lanzamiento · </span>termina en ${d}d ${h}h ${pad(m)}m`;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set('cdD',d);set('cdH',pad(h));set('cdM',pad(m));set('cdS',pad(sec))}
+renderPrices();tick();setInterval(tick,1000);
+
+/* ---------- imágenes (blob: WebGL nunca queda bloqueado) ---------- */
+const cache={};
+const loadImg=src=>cache[src]||(cache[src]=fetch(src).then(r=>{if(!r.ok)throw 0;return r.blob()}).then(b=>URL.createObjectURL(b)).catch(()=>src)
+  .then(u=>new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=u})));
+
+/* ---------- WebGL ---------- */
+const cv=$('#gl'),stage=$('#stage');
+const gl=cv.getContext('webgl',{alpha:true,antialias:true,premultipliedAlpha:true});
+let GLok=!!gl,mesh=null,tex=null,aniso=null;
+const VS=`attribute vec3 aP;attribute vec3 aN;attribute vec2 aU;uniform mat4 uMVP;uniform mat4 uM;uniform mat3 uNM;varying vec2 vU;varying vec3 vN;varying vec3 vW;
+void main(){vU=aU;vN=uNM*aN;vW=(uM*vec4(aP,1.)).xyz;gl_Position=uMVP*vec4(aP,1.);}`;
+const FS=`precision mediump float;uniform sampler2D uT;uniform vec3 uCam;uniform float uFade;varying vec2 vU;varying vec3 vN;varying vec3 vW;
+void main(){vec4 t=texture2D(uT,vU);if(t.a<.04)discard;vec3 n=normalize(vN);if(!gl_FrontFacing)n=-n;
+vec3 L=normalize(vec3(-.4,.6,.9));vec3 V=normalize(uCam-vW);float d=max(dot(n,L),0.);
+vec3 H=normalize(L+V);float sp=pow(max(dot(n,H),0.),28.)*.06;float rim=pow(1.-max(dot(n,V),0.),3.)*.22;
+vec3 c=t.rgb*(.74+.32*d)+(sp+rim)*t.a;gl_FragColor=vec4(c,t.a)*uFade;}`;
+let prog,loc={};
+if(GLok){const sh=(type,src)=>{const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw gl.getShaderInfoLog(s);return s};
+  try{prog=gl.createProgram();gl.attachShader(prog,sh(gl.VERTEX_SHADER,VS));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw gl.getProgramInfoLog(prog);gl.useProgram(prog);
+    ['aP','aN','aU'].forEach(n=>loc[n]=gl.getAttribLocation(prog,n));['uMVP','uM','uNM','uT','uCam','uFade'].forEach(n=>loc[n]=gl.getUniformLocation(prog,n));
+    gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.clearColor(0,0,0,0);
+    aniso=gl.getExtension('EXT_texture_filter_anisotropic')||gl.getExtension('WEBKIT_EXT_texture_filter_anisotropic');
+  }catch(err){console.warn(err);GLok=false}}
+if(!GLok){cv.style.display='none';$('#fb').style.display='block'}
+const mul=(a,b)=>{const o=new Array(16);for(let i=0;i<4;i++)for(let j=0;j<4;j++){let s=0;for(let k=0;k<4;k++)s+=a[k*4+j]*b[i*4+k];o[i*4+j]=s}return o};
+const rotY=t=>{const c=Math.cos(t),s=Math.sin(t);return[c,0,-s,0,0,1,0,0,s,0,c,0,0,0,0,1]};
+const rotX=t=>{const c=Math.cos(t),s=Math.sin(t);return[1,0,0,0,0,c,s,0,0,-s,c,0,0,0,0,1]};
+const persp=(f,a,n,fa)=>{const t=1/Math.tan(f/2);return[t/a,0,0,0,0,t,0,0,0,0,(fa+n)/(n-fa),-1,0,0,2*fa*n/(n-fa),0]};
+/* where the polo sits in the hero: fraction of height, and centre offsets as fractions of the view */
+const layout=()=>{const a=stage.clientWidth/stage.clientHeight;return a>1.1?{F:.64,cx:.13,cy:.03}:{F:.40,cx:0,cy:.06}};
+function depthOf(img){const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const x=c.getContext('2d');x.drawImage(img,0,0);
+  const d=x.getImageData(0,0,c.width,c.height).data,out=new Float32Array(c.width*c.height);for(let i=0;i<out.length;i++)out[i]=d[i*4]/255;return{dw:c.width,dh:c.height,dep:out}}
+function flatDepth(aspect){const dw=64,dh=Math.round(64/aspect),dep=new Float32Array(dw*dh);for(let j=0;j<dh;j++)for(let i=0;i<dw;i++){const x=(i/(dw-1)-.5)*2;dep[j*dw+i]=Math.sqrt(Math.max(0,1-x*x))*.8+.01}return{dw,dh,dep}}
+function buildMesh(D,aspect){const{dw,dh,dep}=D,n=dw*dh,Z=.13,pos=new Float32Array(n*3),nor=new Float32Array(n*3),uv=new Float32Array(n*2);
+  const dx=aspect/(dw-1),dy=1/(dh-1),z=(i,j)=>dep[Math.min(dh-1,Math.max(0,j))*dw+Math.min(dw-1,Math.max(0,i))]*Z;
+  for(let j=0;j<dh;j++)for(let i=0;i<dw;i++){const k=j*dw+i,u=i/(dw-1),v=j/(dh-1);pos[k*3]=(u-.5)*aspect;pos[k*3+1]=.5-v;pos[k*3+2]=z(i,j);uv[k*2]=u;uv[k*2+1]=v;
+    const gx=(z(i+1,j)-z(i-1,j))/(2*dx),gy=-(z(i,j+1)-z(i,j-1))/(2*dy),l=Math.hypot(gx,gy,1);nor[k*3]=-gx/l;nor[k*3+1]=-gy/l;nor[k*3+2]=1/l}
+  const idx=[];for(let j=0;j<dh-1;j++)for(let i=0;i<dw-1;i++){const a=j*dw+i,b=a+1,c=a+dw,d=c+1;if(Math.max(dep[a],dep[b],dep[c],dep[d])>.002)idx.push(a,c,b,b,c,d)}
+  const buf=(data,tgt=gl.ARRAY_BUFFER)=>{const B=gl.createBuffer();gl.bindBuffer(tgt,B);gl.bufferData(tgt,data,gl.STATIC_DRAW);return B};
+  return{p:buf(pos),n:buf(nor),u:buf(uv),i:buf(new Uint16Array(idx),gl.ELEMENT_ARRAY_BUFFER),count:idx.length,aspect}}
+const meshes={};
+async function prepare(i){const p=P[i];if(meshes[p.id])return meshes[p.id];
+  const[img,dimg]=await Promise.all([loadImg('img/'+p.id+'.webp'),loadImg('img/'+p.id+'_depth.png').catch(()=>null)]);
+  if(!GLok)return meshes[p.id]={img};
+  const asp=img.width/img.height;let D;try{D=dimg?depthOf(dimg):flatDepth(asp)}catch(e){D=flatDepth(asp)}
+  const max=Math.min(2048,gl.getParameter(gl.MAX_TEXTURE_SIZE)),pot=n=>Math.min(max,2**Math.ceil(Math.log2(n)));
+  const c=document.createElement('canvas');c.width=pot(img.width);c.height=pot(img.height);const x=c.getContext('2d');x.imageSmoothingQuality='high';x.drawImage(img,0,0,c.width,c.height);
+  const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,true);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,c);gl.generateMipmap(gl.TEXTURE_2D);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  if(aniso)gl.texParameterf(gl.TEXTURE_2D,aniso.TEXTURE_MAX_ANISOTROPY_EXT,Math.min(8,gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+  return meshes[p.id]={img,tex:t,mesh:buildMesh(D,asp)}}
+
+let yaw=-.5,pitch=.04,vy=0,drag=false,lx=0,ly=0,lastMove=0,fade=0,fadeTo=1,interacted=false,pending=-1;
+const LIM=.7,HARD=.84;
+const hideHint=()=>{if(!interacted){interacted=true;$('#hint').classList.add('off')}};
+stage.addEventListener('pointerdown',e=>{if(e.target.closest('button,a'))return;drag=true;lx=e.clientX;ly=e.clientY;vy=0;sv=0;stage.setPointerCapture(e.pointerId)});
+stage.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-lx,dy=e.clientY-ly;lx=e.clientX;ly=e.clientY;lastMove=performance.now();hideHint();
+  if(spinOn&&S){const per=S.n/(stage.clientWidth*1.15)*(P[cur].dir||1);spos-=dx*per;sv=-dx*per;return}
+  const over=Math.max(0,Math.abs(yaw)-LIM),k=1/(1+over*4);yaw=Math.max(-HARD,Math.min(HARD,yaw+dx*.009*k));vy=dx*.009*k;
+  if(e.pointerType==='mouse')pitch=Math.max(-.2,Math.min(.25,pitch+dy*.004));
+  if(!GLok)$('#fb').style.transform=`perspective(900px) rotateY(${yaw*57.3}deg)`});
+const end=()=>{drag=false;lastMove=performance.now()};
+stage.addEventListener('pointerup',end);stage.addEventListener('pointercancel',end);
+
+/* ---------- 360 real por cuadros ---------- */
+const sc=$('#spin'),sx=sc.getContext('2d');
+let spinOn=false,S=null,spos=0,sv=0;const spins={};
+function setSpin(on){spinOn=on;sc.style.display=on?'block':'none';if(GLok)cv.style.display=on?'none':'block';else $('#fb').style.display=on?'none':'block';
+  $('#hintT').textContent=on?'Girala con el dedo · 360°':'Girala con el dedo'}
+function prepareSpin(i){const p=P[i];if(spins[p.id])return spins[p.id];const n=p.spin,st={n,fr:new Array(n)};
+  const one=k=>loadImg(`img/${p.id}/${String(k).padStart(2,'0')}.webp`).then(im=>{st.fr[k]=im}).catch(()=>{});
+  return spins[p.id]=one(0).then(()=>{(async()=>{const order=[];for(let step=Math.max(1,n>>2);step>=1;step>>=1)for(let k=step;k<n;k+=step)if(!order.includes(k))order.push(k);
+    for(let j=0;j<order.length;j+=3)await Promise.all(order.slice(j,j+3).map(one))})();return st})}
+const near=(fr,k)=>{const n=fr.length;for(let d=0;d<n;d++){const f=fr[(k+d)%n]||fr[(k-d+n)%n];if(f)return f}return null};
+function drawSpin(){const W=sc.width,H=sc.height,n=S.n,f=((spos%n)+n)%n,k0=Math.floor(f),t=f-k0,A=near(S.fr,k0),B=S.fr[(k0+1)%n],Lo=layout();
+  sx.globalCompositeOperation='source-over';sx.globalAlpha=1;sx.clearRect(0,0,W,H);if(!A)return;
+  const s=Math.min(H*Lo.F/A.height,W*.9/A.width),w=A.width*s,h=A.height*s,x=W*(.5+Lo.cx)-w/2,y=H*(.5+Lo.cy)-h/2;sx.imageSmoothingQuality='high';
+  if(B&&B!==A&&t>.01){sx.globalCompositeOperation='lighter';sx.globalAlpha=1-t;sx.drawImage(A,x,y,w,h);sx.globalAlpha=t;sx.drawImage(B,x,y,w,h)}else sx.drawImage(A,x,y,w,h)}
+
+function resize(){const r=Math.min(devicePixelRatio||1,2);sc.width=cv.width=Math.round(stage.clientWidth*r);sc.height=cv.height=Math.round(stage.clientHeight*r);
+  const Lo=layout(),st=document.documentElement.style;$('#scene').setAttribute('viewBox',stage.clientWidth/stage.clientHeight>1.1?'-400 90 1200 610':'0 0 400 700');st.setProperty('--sx',(50+Lo.cx*100)+'%');st.setProperty('--sy',((.5+Lo.cy+Lo.F/2)*100+.5)+'%')}
+const ro=new ResizeObserver(resize);ro.observe(stage);resize();
+
+function frame(now){requestAnimationFrame(frame);
+  if(spinOn&&S){if(!drag){spos+=sv;sv*=.92;if(!reduce&&now-lastMove>2600)spos+=S.n/540}drawSpin();return}
+  if(!drag){yaw=Math.max(-HARD,Math.min(HARD,yaw+vy));vy*=.93;if(Math.abs(yaw)>LIM)yaw+=(Math.sign(yaw)*LIM-yaw)*.14;
+    if(!reduce&&now-lastMove>2600){vy*=.9;yaw+=(Math.sin(now/1700)*.5-yaw)*.012}}
+  fade+=(fadeTo-fade)*.16;if(pending>=0&&fade<.04){apply(pending);pending=-1}
+  if(!GLok||!mesh)return;
+  gl.viewport(0,0,cv.width,cv.height);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  const Lo=layout(),asp=cv.width/cv.height,f=30*Math.PI/180,th=Math.tan(f/2)*2,m=mesh.aspect;
+  const dist=Math.max(1/(Lo.F*th),m/(.9*th*asp));const vh=th*dist,ox=Lo.cx*vh*asp,oy=-Lo.cy*vh;
+  const M=mul(rotX(pitch),rotY(yaw)),V=[1,0,0,0,0,1,0,0,0,0,1,0,ox,oy,-dist,1];
+  gl.uniformMatrix4fv(loc.uMVP,false,new Float32Array(mul(persp(f,asp,.1,30),mul(V,M))));gl.uniformMatrix4fv(loc.uM,false,new Float32Array(M));
+  gl.uniformMatrix3fv(loc.uNM,false,new Float32Array([M[0],M[1],M[2],M[4],M[5],M[6],M[8],M[9],M[10]]));
+  gl.uniform3fv(loc.uCam,[-ox,-oy,dist]);gl.uniform1f(loc.uFade,Math.min(1,fade));
+  gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex);gl.uniform1i(loc.uT,0);
+  [['aP',mesh.p,3],['aN',mesh.n,3],['aU',mesh.u,2]].forEach(([n,b,s])=>{gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(loc[n]);gl.vertexAttribPointer(loc[n],s,gl.FLOAT,false,0,0)});
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,mesh.i);gl.drawElements(gl.TRIANGLES,mesh.count,gl.UNSIGNED_SHORT,0)}
+function apply(i){const p=P[i],m=meshes[p.id];if(GLok){mesh=m.mesh;tex=m.tex}else{$('#fb').src=m.img.src;$('#fb').alt='Polo '+p.name}
+  yaw=-.7;vy=.05;fadeTo=1;$('#loading').style.display='none';$('#hint').classList.add('on')}
+async function select(i){if(i===cur)return;cur=i;const p=P[i];
+  const r=document.documentElement.style;r.setProperty('--a1',p.a1);r.setProperty('--a2',p.a2);
+  $('#pname').textContent=p.name;$('#pdesc').textContent=p.desc;
+  $$('#dots button').forEach((b,k)=>b.setAttribute('aria-current',k===i));$$('#rail button').forEach((b,k)=>b.setAttribute('aria-pressed',k===i));
+  if(location.hash!=='#'+p.id){try{history.replaceState(null,'','#'+p.id)}catch(e){}}
+  if(p.spin){if(!spins[p.id])$('#loading').style.display='grid';try{S=await prepareSpin(i)}catch(e){$('#loading').textContent='No se pudo cargar la polo';return}
+    if(cur!==i)return;pending=-1;spos=0;sv=S.n/45;setSpin(true);$('#loading').style.display='none';$('#hint').classList.add('on');return}
+  setSpin(false);if(!meshes[p.id]&&!mesh)$('#loading').style.display='grid';
+  try{await prepare(i)}catch(e){$('#loading').textContent='No se pudo cargar la imagen';return}
+  if(cur!==i)return;if(!mesh||!GLok)apply(i);else{fadeTo=0;pending=i}}
+addEventListener('hashchange',()=>{const k=P.findIndex(p=>'#'+p.id===location.hash);if(k>=0)select(k)});
+select(Math.max(0,P.findIndex(p=>'#'+p.id===location.hash)));
+requestAnimationFrame(frame);
+setTimeout(()=>P.forEach((p,i)=>{if(!p.spin)prepare(i).catch(()=>{})}),1200);
+}
+</script>
+</body>
+</html>
