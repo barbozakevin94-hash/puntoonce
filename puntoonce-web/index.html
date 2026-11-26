@@ -669,7 +669,7 @@ const WA = '59898837397';
 const BRAND = 'Punto Once', PREFIX = 'P11', HOT = 'ondas';
 const SIZES = ['S','M','L','XL','XXL','No sé'];
 /* Precio de lanzamiento: termina en esta fecha y hora (Montevideo). Al vencer, la web vuelve sola al precio normal. */
-const REG = 2900, SALE = 1890, PROMO_END = new Date('2026-11-29T23:59:59-03:00'), PROMO_TXT = 'el domingo 29 de noviembre a las 23:59';
+const REG = 2900, SALE = 1890, PROMO_END = new Date('2026-12-06T23:59:59-03:00'), PROMO_TXT = 'el domingo 6 de diciembre a las 23:59';
 const promo = () => Date.now() < PROMO_END;
 const money = n => '$' + n.toLocaleString('es-UY');
 const PCT = Math.floor((1 - SALE / REG) * 100);
