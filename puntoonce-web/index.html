@@ -7,6 +7,8 @@
 <meta name="description" content="Polos de punto inspiradas en camisetas retro y sandalias de verano. Envío en el día en Montevideo y al interior por DAC. Pagás con tarjeta, Mercado Pago, transferencia o efectivo al recibir.">
 <meta name="theme-color" content="#f5f4f0">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="d3c280de-51c1-4c5b-b1c0-4e88650dc988"></script>
+<!-- Píxel de Meta (mide visitas y toques a WhatsApp que vienen de los anuncios) -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','965003789822746');fbq('track','PageView');</script>
 <link rel="canonical" href="https://puntoonce.shop/">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
@@ -569,7 +571,7 @@ footer .copy-r{flex-basis:100%;font-size:12px;opacity:.8}
 </div>
 </main>
 
-<footer><b>PUNTO ONCE</b><span>Polos tejidas y sandalias · Montevideo, Uruguay</span><span>Envío en el día en Montevideo · Interior por DAC o tu agencia</span><span>Pagás con todas las tarjetas, Mercado Pago, transferencia o efectivo al cadete</span><span class="sfoot"><svg class="i"><use href="#shield"/></svg>Pago seguro</span><span id="numtxt">Atención por WhatsApp</span><button type="button" class="arr-f" data-arr>Botón de arrepentimiento</button><span class="copy-r">© 2026 Punto Once · Montevideo, Uruguay</span></footer>
+<footer><b>PUNTO ONCE</b><span>Polos tejidas y sandalias · Montevideo, Uruguay</span><span>Envío en el día en Montevideo · Interior por DAC o tu agencia</span><span>Pagás con todas las tarjetas, Mercado Pago, transferencia o efectivo al cadete</span><span class="sfoot"><svg class="i"><use href="#shield"/></svg>Pago seguro</span><span id="numtxt">Atención por WhatsApp</span><button type="button" class="arr-f" data-arr>Botón de arrepentimiento</button><span class="copy-r">Esta web usa el píxel de Meta para medir los anuncios</span><span class="copy-r">© 2026 Punto Once · Montevideo, Uruguay</span></footer>
 
 <nav class="tabs" aria-label="Navegación">
   <a class="on" href="#top"><svg class="i"><use href="#home"/></svg>Inicio</a>
@@ -799,8 +801,9 @@ document.addEventListener('click',e=>{
   else if(e.target.closest('[data-wa]'))openMsgs(null);
 });
 $('#menuBtn').addEventListener('click',()=>openSheet('#menuSheet'));
-/* contador de visitas y toques a WhatsApp (Umami, sin cookies) */
-const T=(n,d)=>{try{if(window.umami)umami.track(n,d)}catch(e){}};
+/* contador de visitas y toques a WhatsApp (Umami) + eventos para el píxel de Meta */
+const FB={'WhatsApp':'Contact','Sumar al pedido':'AddToCart'};
+const T=(n,d)=>{try{if(window.umami)umami.track(n,d)}catch(e){}try{if(window.fbq&&FB[n])fbq('track',FB[n],{content_name:(d&&d.producto)||n,content_category:(d&&d.desde)||''})}catch(e){}};
 const bagNames=()=>bag.map(it=>isS(it)?'Sandalia '+((sById(it.id)||{}).name||''):'Polo '+((P.find(x=>x.id===it.id)||{}).name||'')).join(', ');
 document.addEventListener('click',e=>{const t=e.target;
   if(t.closest('#msgGo'))T('WhatsApp',{producto:msgP?'Polo '+msgP.name:'Consulta general',desde:'Mensaje'});
