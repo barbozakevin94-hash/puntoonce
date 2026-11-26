@@ -6,6 +6,7 @@
 <title>Punto Once · Polos tejidas en Montevideo</title>
 <meta name="description" content="Polos de punto inspiradas en camisetas retro y sandalias de verano. Envío en el día en Montevideo y al interior por DAC. Pagás con tarjeta, Mercado Pago, transferencia o efectivo al recibir.">
 <meta name="theme-color" content="#f5f4f0">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="d3c280de-51c1-4c5b-b1c0-4e88650dc988"></script>
 <link rel="canonical" href="https://puntoonce.shop/">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
@@ -798,13 +799,25 @@ document.addEventListener('click',e=>{
   else if(e.target.closest('[data-wa]'))openMsgs(null);
 });
 $('#menuBtn').addEventListener('click',()=>openSheet('#menuSheet'));
+/* contador de visitas y toques a WhatsApp (Umami, sin cookies) */
+const T=(n,d)=>{try{if(window.umami)umami.track(n,d)}catch(e){}};
+const bagNames=()=>bag.map(it=>isS(it)?'Sandalia '+((sById(it.id)||{}).name||''):'Polo '+((P.find(x=>x.id===it.id)||{}).name||'')).join(', ');
+document.addEventListener('click',e=>{const t=e.target;
+  if(t.closest('#msgGo'))T('WhatsApp',{producto:msgP?'Polo '+msgP.name:'Consulta general',desde:'Mensaje'});
+  else if(t.closest('#bagGo'))T('WhatsApp',{producto:bagNames(),desde:'Pedido',prendas:bag.length});
+  else if(t.closest('#sandGo'))T('WhatsApp',{producto:'Sandalia '+sCur.name,desde:'Mensaje'});
+  else if(t.closest('#regGo'))T('WhatsApp',{producto:'Registro 10%',desde:'Registro'});
+  else if(t.closest('#msgAdd')&&msgP)T('Sumar al pedido',{producto:'Polo '+msgP.name});
+  else if(t.closest('#sandAdd'))T('Sumar al pedido',{producto:'Sandalia '+sCur.name});
+  else{const a=t.closest('[data-add]');if(a&&P[+a.dataset.add])T('Sumar al pedido',{producto:'Polo '+P[+a.dataset.add].name})}
+},true);
 /* botón de arrepentimiento */
 document.addEventListener('click',e=>{const b=e.target.closest('[data-arr]');if(!b)return;e.preventDefault();
   const d=$('#arrDate');if(!d.value){const t=new Date();d.max=t.toISOString().slice(0,10)}openSheet('#arrSheet');setTimeout(()=>$('#arrName').focus(),60)});
 $('#arrForm').addEventListener('submit',e=>{e.preventDefault();
   const f=$('#arrDate').value.split('-').reverse().join('/');
   const m='Hola Punto Once, quiero arrepentirme de mi compra (Botón de arrepentimiento).\nNombre: '+$('#arrName').value.trim()+'\nCompra: '+$('#arrWhat').value.trim()+'\nMe llegó el: '+f;
-  window.open(waUrl(m),'_blank','noopener');closeSheets()});
+  T('Botón de arrepentimiento');window.open(waUrl(m),'_blank','noopener');closeSheets()});
 
 document.addEventListener('click',e=>{if(!e.target.closest('[data-combo]'))return;
   if(bag.length){renderBag();openSheet('#bagSheet')}else{$('#coleccion').scrollIntoView({behavior:reduce?'auto':'smooth'});toast('Tocá + en 2 polos para armar tu combo')}});
